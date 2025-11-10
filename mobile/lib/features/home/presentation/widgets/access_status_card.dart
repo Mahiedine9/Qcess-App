@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/theme/app_theme.dart';
+import 'package:mobile/core/utils/responsive_utils.dart';
 
 class AccessStatusCard extends StatelessWidget {
   final DateTime? lastAccess;
@@ -11,10 +12,15 @@ class AccessStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+    final spacing = context.spacing;
+    final isMobile = context.isMobile;
+
+    final cardPadding = isMobile ? spacing * 1.25 : spacing * 1.5;
+    final iconPadding = isMobile ? spacing * 0.75 : spacing;
+    final iconSize = isMobile ? 24.0 : 28.0;
+
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(cardPadding),
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
@@ -33,7 +39,7 @@ class AccessStatusCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: spacing * 0.25),
                 Text(
                   _formatLastAccess(),
                   style: theme.textTheme.bodyMedium?.copyWith(
@@ -44,15 +50,15 @@ class AccessStatusCard extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: EdgeInsets.all(iconPadding),
             decoration: BoxDecoration(
-              color: AppColors.success.withOpacity(0.1),
+              color: AppColors.success.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.key,
               color: AppColors.success,
-              size: 28,
+              size: iconSize,
             ),
           ),
         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/theme/app_theme.dart';
+import 'package:mobile/core/utils/responsive_utils.dart';
 import 'package:mobile/features/home/data/models/user_dashboard.dart';
 
 class StatsRow extends StatelessWidget {
@@ -10,27 +11,26 @@ class StatsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Row(
-        children: [
-          Expanded(
-            child: _StatCard(
-              value: dashboard.totalAccess.toString(),
-              label: 'accès ce mois',
-              color: AppColors.primary,
-            ),
+    final spacing = context.spacing;
+
+    return Row(
+      children: [
+        Expanded(
+          child: _StatCard(
+            value: dashboard.totalAccess.toString(),
+            label: 'accès ce mois',
+            color: AppColors.primary,
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: _StatCard(
-              value: dashboard.totalZones.toString(),
-              label: 'zones',
-              color: AppColors.primary,
-            ),
+        ),
+        SizedBox(width: spacing),
+        Expanded(
+          child: _StatCard(
+            value: dashboard.totalZones.toString(),
+            label: 'zones',
+            color: AppColors.primary,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -49,9 +49,17 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+    final spacing = context.spacing;
+    final isMobile = context.isMobile;
+
+    final cardPadding = isMobile ? spacing * 1.25 : spacing * 1.5;
+    final valueFontSize = ResponsiveUtils.getScaledFontSize(
+      context,
+      isMobile ? 28 : 32,
+    );
+
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(cardPadding),
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
@@ -63,10 +71,10 @@ class _StatCard extends StatelessWidget {
             value,
             style: theme.textTheme.displayLarge?.copyWith(
               color: color,
-              fontSize: 32,
+              fontSize: valueFontSize,
             ),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: spacing * 0.25),
           Text(
             label,
             textAlign: TextAlign.center,

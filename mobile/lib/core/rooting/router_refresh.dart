@@ -1,18 +1,23 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-class GoRouterRefreshStream extends ChangeNotifier {
-  GoRouterRefreshStream(Stream<dynamic> stream) {
-    _subscription = stream.asBroadcastStream().listen((_) {
-      notifyListeners();
-    });
+class RouterRefresh extends ChangeNotifier {
+  RouterRefresh(List<Stream<dynamic>> streams) {
+    for (var stream in streams) {
+      final subscription = stream.asBroadcastStream().listen((_) {
+        notifyListeners();
+      });
+      _subscriptions.add(subscription);
+    }
   }
 
-  late final StreamSubscription<dynamic> _subscription;
+  final List<StreamSubscription<dynamic>> _subscriptions = [];
 
   @override
   void dispose() {
-    _subscription.cancel();
+    for (var subscription in _subscriptions) {
+      subscription.cancel();
+    }
     super.dispose();
   }
 }

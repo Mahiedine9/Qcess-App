@@ -21,4 +21,9 @@ class AppColors {
   
   static const borderLight = Color(0xFFE0E0E0);
   static const borderMedium = Color(0xFFBDBDBD);
+
+  static const historyColor = Color(0xFF5C6BC0);
+  static const reservationsColor = Color(0xFF9C27B0);
+  static const supportColor = Color(0xFF26A69A);
+  static const ticketsColor = Color(0xFFFF7043);
 }

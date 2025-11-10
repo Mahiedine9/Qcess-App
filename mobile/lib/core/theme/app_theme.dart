@@ -274,7 +274,6 @@ class AppTheme {
         ),
       ),
       
-      // Bottom Navigation Bar Theme
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.cardBackground,
         selectedItemColor: AppColors.primary,

@@ -1,4 +1,4 @@
-import 'package:mobile/features/auth/data/models/User.dart';
+import 'package:mobile/core/entities/User.dart';
 import 'package:mobile/features/auth/data/repositories/i_auth_repository.dart';
 import 'package:mobile/features/auth/logic/bloc/auth_event.dart';
 import 'package:mobile/features/auth/logic/bloc/auth_state.dart';

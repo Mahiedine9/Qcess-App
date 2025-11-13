@@ -8,6 +8,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initDependencies();
-  Bloc.observer = SimpleBlocObserver(); 
+  Bloc.observer = SimpleBlocObserver(); //for debugging
   runApp(const MyApp());
 }

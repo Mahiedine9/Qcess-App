@@ -15,7 +15,6 @@ class AuthPage extends StatelessWidget {
       listener: (context, state) {
       },
       builder: (context, state) {
-        // Responsive values
         final horizontalPadding = context.horizontalPadding;
         final spacing = context.spacing;
         final maxContentWidth = ResponsiveUtils.getMaxContentWidth(context);

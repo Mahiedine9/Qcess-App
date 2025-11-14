@@ -1,0 +1,13 @@
+package univ.lille.domain.port.out;
+
+import univ.lille.domain.model.Organization;
+
+import java.util.Optional;
+
+public interface OrganizationRepository {
+    Organization save(Organization organization);
+    Optional<Organization> findById(Long id);
+    Optional<Organization> findByName(String name);
+    //Optional<Organization> findByCode(String code);
+    void delete(Organization organization);
+}

@@ -39,6 +39,16 @@
         <version>5.9.1</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <groupId>univ.lille</groupId>
+        <artifactId>platform-contracts</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>univ.lille</groupId>
+        <artifactId>platform-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 

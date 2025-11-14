@@ -21,6 +21,7 @@ class AppRouter {
 
   AppRouter(this._authBloc, this._splashBloc);
 
+
   late final GoRouter router = GoRouter(
     initialLocation: AppRoutes.splash,
     refreshListenable: RouterRefresh([
@@ -41,12 +42,16 @@ class AppRouter {
       return null;
     }
 
-    if (splashState is SplashCompleted && isSplashPage) {
-      if (authState is AuthAuthenticated) {
-        _triggerDashboardLoad(context, authState.user.id);
-        return AppRoutes.home;
-      } else {
-        return AppRoutes.auth;
+    if (splashState is SplashCompleted) {
+      if (splashState is SplashAuthenticated) {
+        if (isSplashPage) {
+          _triggerDashboardLoad(context);
+          return AppRoutes.home;
+        }
+      } else if (splashState is SplashUnauthenticated) {
+        if (isSplashPage) {
+          return AppRoutes.auth;
+        }
       }
     }
 
@@ -55,7 +60,7 @@ class AppRouter {
     }
 
     if (authState is AuthAuthenticated && isAuthPage) {
-      _triggerDashboardLoad(context, authState.user.id);
+      _triggerDashboardLoad(context);
       return AppRoutes.home;
     }
 
@@ -86,7 +91,7 @@ class AppRouter {
                     listenWhen: (prev, curr) => curr is AuthAuthenticated,
                     listener: (context, state) {
                       if (state is AuthAuthenticated) {
-                        _triggerDashboardLoad(context, state.user.id);
+                        _triggerDashboardLoad(context);
                       }
                     },
                     child: const HomePage(),
@@ -98,12 +103,12 @@ class AppRouter {
         ),
       ];
 
-  void _triggerDashboardLoad(BuildContext context, int userId) {
+  void _triggerDashboardLoad(BuildContext context) {
     final dashboardBloc = context.read<DashboardBloc>();
     final state = dashboardBloc.state;
 
     if (state is DashboardInitial || state is DashboardError) {
-      dashboardBloc.add(LoadDashboard(userId));
+      dashboardBloc.add(LoadDashboard());
     }
   }
 }

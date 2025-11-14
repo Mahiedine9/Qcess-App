@@ -11,27 +11,27 @@ abstract class DashboardState extends Equatable{
 }
 
 class DashboardInitial extends DashboardState {
-  const DashboardInitial() : super(userId: null);
+  const DashboardInitial() : super();
 }
 
 class DashboardLoading extends DashboardState {
-  const DashboardLoading(int userId) : super(userId: userId);
+  const DashboardLoading() : super();
 }
 
 class DashboardLoaded extends DashboardState {
   final UserDashboard userDashboard;
 
-  const DashboardLoaded(this.userDashboard, int userId) : super(userId: userId);
+  const DashboardLoaded(this.userDashboard) : super();
 
   @override
-  List<Object?> get props => [userDashboard, userId];
+  List<Object?> get props => [userDashboard];
 }
 
 class DashboardError extends DashboardState {
   final String message;
 
-  const DashboardError(this.message, {int? userId}) : super(userId: userId);
+  const DashboardError(this.message) : super();
 
   @override
-  List<Object?> get props => [message, userId];
+  List<Object?> get props => [message];
 }

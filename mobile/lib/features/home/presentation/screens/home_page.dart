@@ -47,14 +47,13 @@ class HomePage extends StatelessWidget {
     return ErrorDisplayWidget(
       message: message,
       onRetry: userId != null
-          ? () => dashboardBloc.add(LoadDashboard(userId))
+          ? () => dashboardBloc.add(LoadDashboard())
           : null,
     );
   }
 
   Widget _buildContent(BuildContext context, UserDashboard dashboard) {
     final dashboardBloc = context.read<DashboardBloc>();
-    final userId = dashboardBloc.state.userId;
 
     final horizontalPadding = context.horizontalPadding;
     final verticalPadding = context.verticalPadding;
@@ -63,9 +62,7 @@ class HomePage extends StatelessWidget {
     return RefreshIndicator(
       color: AppColors.primary,
       onRefresh: () async {
-        if (userId != null) {
-          dashboardBloc.add(RefreshDashboard(userId));
-        }
+        dashboardBloc.add(RefreshDashboard());
         await Future.delayed(const Duration(seconds: 1));
       },
       child: SingleChildScrollView(

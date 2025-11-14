@@ -6,19 +6,15 @@ abstract class DashboardEvent extends Equatable {
 }
 
 class LoadDashboard extends DashboardEvent {
-  final int userId;
-
-  LoadDashboard(this.userId);
+  LoadDashboard();
 
   @override
-  List<Object?> get props => [userId];
+  List<Object?> get props => [];
 }
 
 class RefreshDashboard extends DashboardEvent {
-  final int userId;
-
-  RefreshDashboard(this.userId);
+  RefreshDashboard();
 
   @override
-  List<Object?> get props => [userId];
+  List<Object?> get props => [];
 }

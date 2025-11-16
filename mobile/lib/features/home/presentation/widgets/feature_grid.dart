@@ -12,14 +12,38 @@ class FeatureGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final spacing = context.spacing;
     final gridColumns = context.gridColumns;
-
+    
     final features = [
-      const FeatureData(icon: Icons.key, label: 'Mes accès', color: AppColors.warning),
-      const FeatureData(icon: Icons.qr_code_scanner, label: 'Ouvrir', color: AppColors.primary),
-      const FeatureData(icon: Icons.history, label: 'Historique', color: AppColors.historyColor),
-      const FeatureData(icon: Icons.calendar_today, label: 'Réservations', color: AppColors.reservationsColor),
-      const FeatureData(icon: Icons.chat_bubble_outline, label: 'Support', color: AppColors.supportColor),
-      const FeatureData(icon: Icons.build, label: 'Tickets', color: AppColors.ticketsColor),
+      const FeatureData(
+        icon: Icons.key,
+        label: 'Mes accès',
+        color: AppColors.warning,
+      ),
+      const FeatureData(
+        icon: Icons.qr_code_scanner,
+        label: 'Ouvrir',
+        color: AppColors.primary,
+      ),
+      const FeatureData(
+        icon: Icons.history,
+        label: 'Historique',
+        color: AppColors.historyColor,
+      ),
+      const FeatureData(
+        icon: Icons.calendar_today,
+        label: 'Réservations',
+        color: AppColors.reservationsColor,
+      ),
+      const FeatureData(
+        icon: Icons.chat_bubble_outline,
+        label: 'Support',
+        color: AppColors.supportColor,
+      ),
+      const FeatureData(
+        icon: Icons.build,
+        label: 'Tickets',
+        color: AppColors.ticketsColor,
+      ),
     ];
 
     return GridView.builder(

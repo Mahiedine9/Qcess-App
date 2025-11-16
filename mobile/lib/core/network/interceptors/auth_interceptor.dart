@@ -22,11 +22,13 @@ class AuthInterceptor extends Interceptor {
 
     try {
       final token = await _tokenStorage.getToken();
+      
       if (token != null && token.isNotEmpty) {
         options.headers['Authorization'] = 'Bearer $token';
+      } else {
       }
     } catch (e) {
-      print('[AuthInterceptor] Erreur lecture token: $e');
+      print('[AuthInterceptor] Error retrieving token: ${e.toString()}');
     }
 
     return handler.next(options);

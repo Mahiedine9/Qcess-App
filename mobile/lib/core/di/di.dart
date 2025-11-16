@@ -15,7 +15,7 @@ import 'package:mobile/features/splash/logic/bloc/splash_bloc.dart';
 
 final sl = GetIt.instance;
 
-const String apiBaseUrl = 'http://192.168.1.100:8080';
+const String apiBaseUrl = 'http://10.0.2.2:8080';
 const Duration httpTimeout = Duration(seconds: 30);
 
 Future<void> initDependencies() async {

@@ -16,8 +16,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    context.read<SplashBloc>().add(const CheckAuthStatus());
-  }
+    context.read<SplashBloc>().add(const StartSplashAnimation());  }
 
   @override
   Widget build(BuildContext context) {

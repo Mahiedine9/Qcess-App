@@ -26,6 +26,10 @@ class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
+      listenWhen: (previous, current) {
+        return previous is AuthLoading &&
+              (current is AuthAuthenticated || current is AuthUnauthenticated);
+      },
       listener: (context, state) {
         if (state is AuthUnauthenticated) {
           CustomSnackBar.showError(

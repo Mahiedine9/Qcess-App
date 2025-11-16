@@ -11,6 +11,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authRepository}) : super(AuthInitial()) {
     on<LoginRequested>(_onLoginRequested);
     on<LogoutRequested>(_onLogoutRequested);
+    on<AppStarted>(_onAppStart);
+  }
+
+  Future<void> _onAppStart(
+    AppStarted event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      final hasToken = await authRepository.checkToken();
+      if (hasToken) {
+        final token = await authRepository.getToken();
+        if (token != null && token.isNotEmpty) {
+          emit(AuthAuthenticated(token: token));
+        } else {
+          emit(AuthUnauthenticated());
+        }
+      } else {
+        emit(AuthUnauthenticated());
+      }
+    } catch (e) {
+      emit(AuthUnauthenticated());
+    }
   }
 
   Future<void> _onLoginRequested(
@@ -19,8 +41,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthLoading());
     try {
-      final user = await authRepository.login(event.username, event.accessCode);
-      emit(AuthAuthenticated(user: user));
+      final token = await authRepository.login(event.username, event.accessCode);
+      emit(AuthAuthenticated(token: token));
     } catch (e) {
       emit(AuthUnauthenticated(error: _mapExceptionToMessage(e)));
     }
@@ -70,4 +92,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     return 'Une erreur est survenue. Veuillez réessayer.';
   }
+
+  
 }

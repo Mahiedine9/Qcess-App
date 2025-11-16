@@ -5,6 +5,7 @@ import 'package:mobile/core/presentation/widgets/scaffold_with_nav_bar.dart';
 import 'package:mobile/core/rooting/app_routes.dart';
 import 'package:mobile/core/rooting/router_refresh.dart';
 import 'package:mobile/features/auth/logic/bloc/auth_bloc.dart';
+import 'package:mobile/features/auth/logic/bloc/auth_event.dart';
 import 'package:mobile/features/auth/logic/bloc/auth_state.dart';
 import 'package:mobile/features/auth/presentation/screens/auth_page.dart';
 import 'package:mobile/features/home/logic/bloc/dashboard_bloc.dart';
@@ -42,16 +43,13 @@ class AppRouter {
       return null;
     }
 
-    if (splashState is SplashCompleted) {
-      if (splashState is SplashAuthenticated) {
-        if (isSplashPage) {
-          _triggerDashboardLoad(context);
-          return AppRoutes.home;
-        }
-      } else if (splashState is SplashUnauthenticated) {
-        if (isSplashPage) {
-          return AppRoutes.auth;
-        }
+    if (splashState is SplashCompleted && isSplashPage) {
+      context.read<AuthBloc>().add(AppStarted());
+      if (authState is AuthAuthenticated) {
+        _triggerDashboardLoad(context);
+        return AppRoutes.home;
+      } else {
+        return AppRoutes.auth;
       }
     }
 
@@ -66,6 +64,7 @@ class AppRouter {
 
     return null;
   }
+
 
   List<RouteBase> _buildRoutes() => [
         GoRoute(

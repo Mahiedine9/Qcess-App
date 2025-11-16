@@ -7,6 +7,6 @@ abstract class SplashEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class CheckAuthStatus extends SplashEvent {
-  const CheckAuthStatus();
+class StartSplashAnimation extends SplashEvent {
+  const StartSplashAnimation();
 }

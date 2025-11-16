@@ -7,25 +7,15 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final IAuthRepository authRepository;
 
   SplashBloc({required this.authRepository}) : super(const SplashInitial()) {
-    on<CheckAuthStatus>(_onCheckAuthStatus);
+    on<StartSplashAnimation>(_onStartSplash);
   }
 
-  Future<void> _onCheckAuthStatus(
-    CheckAuthStatus event,
+  Future<void> _onStartSplash(
+    StartSplashAnimation event,
     Emitter<SplashState> emit,
   ) async {
     emit(const SplashAnimating());
-
-    await Future.delayed(const Duration(milliseconds: 2500));
-
-    final hasToken = await authRepository.checkToken();
-    print('[SplashBloc] ${hasToken ? ' Token trouvé' : ' Pas de token'}');
-
-    if (hasToken) {
-      emit(const SplashAuthenticated());
-    } else {
-      emit(const SplashUnauthenticated());
-    }
+    await Future.delayed(const Duration(seconds: 1));
 
     emit(const SplashCompleted());
   }

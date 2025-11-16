@@ -6,8 +6,8 @@ class LoginRequest {
 
   Map<String, dynamic> toJson() {
     return {
-      'username': username,
-      'accessCode': accessCode,
+      'email': username,
+      'loginCode': accessCode,
     };
   }
 }

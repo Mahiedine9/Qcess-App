@@ -28,4 +28,13 @@ class AuthApiService extends BaseApiRepository {
       rethrow;
     }
   }
+
+  Future<bool> checkToken() async {
+    try {
+      await get<String>('/api/auth/me');
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

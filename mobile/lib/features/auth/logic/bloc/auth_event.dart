@@ -11,3 +11,5 @@ class LogoutRequested extends AuthEvent {
   final String token;
   LogoutRequested({required this.token});
 }
+
+class AppStarted extends AuthEvent {}

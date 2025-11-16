@@ -1,4 +1,3 @@
-import 'package:mobile/core/entities/User.dart';
 import 'package:mobile/features/auth/data/models/login_request.dart';
 import 'package:mobile/features/auth/data/repositories/auth_api_service.dart';
 import 'package:mobile/features/auth/data/repositories/i_auth_repository.dart';
@@ -15,7 +14,7 @@ class AuthRepositoryImpl implements IAuthRepository {
   });
 
   @override
-  Future<User> login(String username, String accessCode) async {
+  Future<String> login(String username, String accessCode) async {
     try {
       final request = LoginRequest(
         username: username,
@@ -24,17 +23,8 @@ class AuthRepositoryImpl implements IAuthRepository {
       final response = await apiService.login(request);
       
       await tokenStorage.saveToken(response.token);
-      
-      final user = User(
-        token: response.token,
-        email: response.email,
-        fullName: response.fullName,
-        organisationId: int.tryParse(response.organization) ?? 0,
-        role: response.role,
-        avatarUrl: null,
-      );
-      
-      return user;
+  
+      return response.token;
     } on ApiException {
       rethrow;
     } catch (e) {
@@ -58,10 +48,29 @@ class AuthRepositoryImpl implements IAuthRepository {
   Future<bool> checkToken() async {
     try {
       final token = await tokenStorage.getToken();
-      return token != null && token.isNotEmpty;
+      if (token == null || token.isEmpty) {
+        return false;
+      }
+      
+      final isValid = await apiService.checkToken();
+      if (!isValid) {
+        await tokenStorage.deleteToken();
+        return false;
+      }
+      return true;
+      
     } catch (e) {
       print('[AuthRepository] Erreur vérification token: $e');
       return false;
+    }
+  }
+
+  @override
+  Future<String?> getToken() async {
+    try {
+      return await tokenStorage.getToken();
+    } catch (e) {
+      return null;
     }
   }
 }

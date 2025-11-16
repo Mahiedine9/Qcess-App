@@ -18,11 +18,3 @@ class SplashAnimating extends SplashState {
 class SplashCompleted extends SplashState {
   const SplashCompleted();
 }
-
-class SplashAuthenticated extends SplashState {
-  const SplashAuthenticated();
-}
-
-class SplashUnauthenticated extends SplashState {
-  const SplashUnauthenticated();
-}

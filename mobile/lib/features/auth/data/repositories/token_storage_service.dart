@@ -7,10 +7,13 @@ class TokenStorageService {
 
   Future<void> saveToken(String token) async {
     await _storage.write(key: _tokenKey, value: token);
+    print('[TokenStorageService] ✅ Token saved');
   }
 
   Future<String?> getToken() async {
-    return await _storage.read(key: _tokenKey);
+    final token = await _storage.read(key: _tokenKey);
+    print('[TokenStorage] 🔍 Token read: ${token != null ? "FOUND" : "NULL"}');
+    return token;
   }
 
   Future<void> deleteToken() async {

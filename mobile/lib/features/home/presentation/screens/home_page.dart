@@ -28,20 +28,28 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorScheme.primary,
       body: SafeArea(
-        child: BlocBuilder<DashboardBloc, DashboardState>(
-          builder: (context, state) {
-            if (state is DashboardLoading) {
-              return const LoadingWidget();
+        child: BlocListener<AuthBloc, AuthState>(
+          listener: (context, authState) {
+            if (authState is AuthAuthenticated && authState.userInfo != null) {
+              final dashboardBloc = context.read<DashboardBloc>();
+              dashboardBloc.add(LoadDashboard(userInfo: authState.userInfo!));
             }
-            if (state is DashboardError) {
-              return _buildError(context, state.message);
-            }
-            if (state is DashboardLoaded) {
-              return _buildContent(context, state.userDashboard);
-            }
-
-            return const SizedBox.shrink();
           },
+          child: BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              if (state is DashboardLoading) {
+                return const LoadingWidget();
+              }
+              if (state is DashboardError) {
+                return _buildError(context, state.message);
+              }
+              if (state is DashboardLoaded) {
+                return _buildContent(context, state.userDashboard);
+              }
+
+              return const SizedBox.shrink();
+            },
+          ),
         ),
       ),
     );

@@ -3,12 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
+import 'package:mobile/features/auth/data/models/user_info.dart' as _i2;
 import 'package:mobile/features/auth/data/repositories/i_auth_repository.dart'
-    as _i2;
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i4;
+import 'package:mockito/src/dummies.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -24,49 +25,73 @@ import 'package:mockito/src/dummies.dart' as _i4;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
+class _FakeUserInfo_0 extends _i1.SmartFake implements _i2.UserInfo {
+  _FakeUserInfo_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
+}
+
 /// A class which mocks [IAuthRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockIAuthRepository extends _i1.Mock implements _i2.IAuthRepository {
+class MockIAuthRepository extends _i1.Mock implements _i3.IAuthRepository {
   MockIAuthRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<String> login(String? username, String? accessCode) =>
+  _i4.Future<String> login(String? username, String? accessCode) =>
       (super.noSuchMethod(
             Invocation.method(#login, [username, accessCode]),
-            returnValue: _i3.Future<String>.value(
-              _i4.dummyValue<String>(
+            returnValue: _i4.Future<String>.value(
+              _i5.dummyValue<String>(
                 this,
                 Invocation.method(#login, [username, accessCode]),
               ),
             ),
           )
-          as _i3.Future<String>);
+          as _i4.Future<String>);
 
   @override
-  _i3.Future<void> logout(String? token) =>
+  _i4.Future<void> logout(String? token) =>
       (super.noSuchMethod(
             Invocation.method(#logout, [token]),
-            returnValue: _i3.Future<void>.value(),
-            returnValueForMissingStub: _i3.Future<void>.value(),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
           )
-          as _i3.Future<void>);
+          as _i4.Future<void>);
 
   @override
-  _i3.Future<bool> checkToken() =>
+  _i4.Future<bool> checkToken() =>
       (super.noSuchMethod(
             Invocation.method(#checkToken, []),
-            returnValue: _i3.Future<bool>.value(false),
+            returnValue: _i4.Future<bool>.value(false),
           )
-          as _i3.Future<bool>);
+          as _i4.Future<bool>);
 
   @override
-  _i3.Future<String?> getToken() =>
+  _i4.Future<String?> getToken() =>
       (super.noSuchMethod(
             Invocation.method(#getToken, []),
-            returnValue: _i3.Future<String?>.value(),
+            returnValue: _i4.Future<String?>.value(),
           )
-          as _i3.Future<String?>);
+          as _i4.Future<String?>);
+
+  @override
+  _i4.Future<_i2.UserInfo> getUserInfo() =>
+      (super.noSuchMethod(
+            Invocation.method(#getUserInfo, []),
+            returnValue: _i4.Future<_i2.UserInfo>.value(
+              _FakeUserInfo_0(this, Invocation.method(#getUserInfo, [])),
+            ),
+          )
+          as _i4.Future<_i2.UserInfo>);
+
+  @override
+  _i4.Future<void> clearLocalData() =>
+      (super.noSuchMethod(
+            Invocation.method(#clearLocalData, []),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
 }

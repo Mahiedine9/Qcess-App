@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mobile/features/profile/data/dto/update_profile_request.dart';
-import 'package:mobile/features/profile/data/models/user_profile.dart';
+import 'package:mobile/features/auth/data/models/user_info.dart';
 import 'package:mobile/features/profile/data/repositories/i_profile_repository.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_bloc.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_event.dart';
@@ -16,7 +16,7 @@ void main() {
   late ProfileBloc profileBloc;
   late MockIProfileRepository mockProfileRepository;
 
-  const testProfile = UserProfile(
+  const testProfile = UserInfo(
     id: 1,
     email: 'test@example.com',
     firstName: 'John',
@@ -29,7 +29,7 @@ void main() {
     profilePictureUrl: null,
   );
 
-  const updatedProfile = UserProfile(
+  const updatedProfile = UserInfo(
     id: 1,
     email: 'updated@example.com',
     firstName: 'Jane',
@@ -42,7 +42,7 @@ void main() {
     profilePictureUrl: null,
   );
 
-  const profileWithPicture = UserProfile(
+  const profileWithPicture = UserInfo(
     id: 1,
     email: 'test@example.com',
     firstName: 'John',

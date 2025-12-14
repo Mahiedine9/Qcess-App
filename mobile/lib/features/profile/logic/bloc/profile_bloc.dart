@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile/features/profile/data/models/user_profile.dart';
+import 'package:mobile/features/auth/data/models/user_info.dart';
 import 'package:mobile/features/profile/data/repositories/i_profile_repository.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_event.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_state.dart';
@@ -87,7 +87,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  UserProfile? _getCurrentProfile() {
+  UserInfo? _getCurrentProfile() {
     final currentState = state;
     if (currentState is ProfileLoaded) return currentState.profile;
     if (currentState is ProfileUpdating) return currentState.profile;

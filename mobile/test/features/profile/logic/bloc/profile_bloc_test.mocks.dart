@@ -5,9 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:mobile/features/auth/data/models/user_info.dart' as _i2;
 import 'package:mobile/features/profile/data/dto/update_profile_request.dart'
     as _i5;
-import 'package:mobile/features/profile/data/models/user_profile.dart' as _i2;
 import 'package:mobile/features/profile/data/repositories/i_profile_repository.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -26,8 +26,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeUserProfile_0 extends _i1.SmartFake implements _i2.UserProfile {
-  _FakeUserProfile_0(Object parent, Invocation parentInvocation)
+class _FakeUserInfo_0 extends _i1.SmartFake implements _i2.UserInfo {
+  _FakeUserInfo_0(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
@@ -41,40 +41,38 @@ class MockIProfileRepository extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i2.UserProfile> getMyProfile() =>
+  _i4.Future<_i2.UserInfo> getMyProfile() =>
       (super.noSuchMethod(
             Invocation.method(#getMyProfile, []),
-            returnValue: _i4.Future<_i2.UserProfile>.value(
-              _FakeUserProfile_0(this, Invocation.method(#getMyProfile, [])),
+            returnValue: _i4.Future<_i2.UserInfo>.value(
+              _FakeUserInfo_0(this, Invocation.method(#getMyProfile, [])),
             ),
           )
-          as _i4.Future<_i2.UserProfile>);
+          as _i4.Future<_i2.UserInfo>);
 
   @override
-  _i4.Future<_i2.UserProfile> updateProfile(
-    _i5.UpdateProfileRequest? request,
-  ) =>
+  _i4.Future<_i2.UserInfo> updateProfile(_i5.UpdateProfileRequest? request) =>
       (super.noSuchMethod(
             Invocation.method(#updateProfile, [request]),
-            returnValue: _i4.Future<_i2.UserProfile>.value(
-              _FakeUserProfile_0(
+            returnValue: _i4.Future<_i2.UserInfo>.value(
+              _FakeUserInfo_0(
                 this,
                 Invocation.method(#updateProfile, [request]),
               ),
             ),
           )
-          as _i4.Future<_i2.UserProfile>);
+          as _i4.Future<_i2.UserInfo>);
 
   @override
-  _i4.Future<_i2.UserProfile> updateProfilePicture(String? imagePath) =>
+  _i4.Future<_i2.UserInfo> updateProfilePicture(String? imagePath) =>
       (super.noSuchMethod(
             Invocation.method(#updateProfilePicture, [imagePath]),
-            returnValue: _i4.Future<_i2.UserProfile>.value(
-              _FakeUserProfile_0(
+            returnValue: _i4.Future<_i2.UserInfo>.value(
+              _FakeUserInfo_0(
                 this,
                 Invocation.method(#updateProfilePicture, [imagePath]),
               ),
             ),
           )
-          as _i4.Future<_i2.UserProfile>);
+          as _i4.Future<_i2.UserInfo>);
 }

@@ -12,8 +12,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginRequested>(_onLoginRequested);
     on<LogoutRequested>(_onLogoutRequested);
     on<AppStarted>(_onAppStart);
+    on<UpdateUserInfoEvent>(_onUpdateUserInfo);
   }
-
+  
   Future<void> _onAppStart(AppStarted event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
@@ -50,12 +51,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         event.accessCode,
       );
 
-      // Récupérer les infos utilisateur après le login
       try {
         final userInfo = await authRepository.getUserInfo();
         emit(AuthAuthenticated(token: token, userInfo: userInfo));
       } catch (e) {
-        // Si échec de récupération des infos, déconnecter
         print('[AuthBloc] Erreur récupération user info après login: $e');
         await authRepository.logout(token);
         emit(
@@ -76,14 +75,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(AuthLoading());
     try {
-      // Appeler l'API de déconnexion
       await authRepository.logout(event.token);
       emit(AuthUnauthenticated());
     } catch (e) {
-      // Même en cas d'erreur, on déconnecte l'utilisateur localement
       print('[AuthBloc] Erreur lors de la déconnexion: $e');
       await authRepository.clearLocalData();
       emit(AuthUnauthenticated());
+    }
+  }
+
+  Future<void> _onUpdateUserInfo(
+    UpdateUserInfoEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is AuthAuthenticated) {
+      emit(
+        AuthAuthenticated(
+          token: currentState.token,
+          userInfo: event.userInfo,
+        ),
+      );
     }
   }
 
@@ -118,4 +130,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     return 'Une erreur est survenue. Veuillez réessayer.';
   }
+
+
 }

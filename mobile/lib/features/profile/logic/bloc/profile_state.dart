@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:mobile/features/profile/data/models/user_profile.dart';
+import 'package:mobile/features/auth/data/models/user_info.dart';
 
 abstract class ProfileState extends Equatable {}
 
@@ -14,7 +14,7 @@ class ProfileLoading extends ProfileState {
 }
 
 class ProfileLoaded extends ProfileState {
-  final UserProfile profile;
+  final UserInfo profile;
 
   ProfileLoaded({required this.profile});
 
@@ -23,7 +23,7 @@ class ProfileLoaded extends ProfileState {
 }
 
 class ProfileUpdating extends ProfileState {
-  final UserProfile profile;
+  final UserInfo profile;
 
   ProfileUpdating({required this.profile});
 
@@ -32,7 +32,7 @@ class ProfileUpdating extends ProfileState {
 }
 
 class ProfileUpdateSuccess extends ProfileState {
-  final UserProfile profile;
+  final UserInfo profile;
   final String message;
 
   ProfileUpdateSuccess({required this.profile, required this.message});
@@ -43,7 +43,7 @@ class ProfileUpdateSuccess extends ProfileState {
 
 class ProfileError extends ProfileState {
   final String message;
-  final UserProfile? previousProfile;
+  final UserInfo? previousProfile;
 
   ProfileError({required this.message, this.previousProfile});
 

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:mobile/core/network/base_api_repository.dart';
+import 'package:mobile/features/auth/data/models/user_info.dart';
 import 'package:mobile/features/profile/data/dto/update_profile_request.dart';
-import 'package:mobile/features/profile/data/models/user_profile.dart';
 import 'package:mobile/features/profile/data/repositories/i_profile_repository.dart';
 
 class ProfileRepository extends BaseApiRepository implements IProfileRepository {
@@ -10,24 +10,24 @@ class ProfileRepository extends BaseApiRepository implements IProfileRepository 
   ProfileRepository(Dio dio) : super(dio);
 
   @override
-  Future<UserProfile> getMyProfile() async {
-    return get<UserProfile>(
+  Future<UserInfo> getMyProfile() async {
+    return get<UserInfo>(
       '$_basePath/me',
-      fromJson: (data) => UserProfile.fromJson(data),
+      fromJson: (data) => UserInfo.fromJson(data),
     );
   }
 
   @override
-  Future<UserProfile> updateProfile(UpdateProfileRequest request) async {
-    return put<UserProfile>(
+  Future<UserInfo> updateProfile(UpdateProfileRequest request) async {
+    return put<UserInfo>(
       '$_basePath/me',
       data: request.toJson(),
-      fromJson: (data) => UserProfile.fromJson(data),
+      fromJson: (data) => UserInfo.fromJson(data),
     );
   }
 
   @override
-  Future<UserProfile> updateProfilePicture(String imagePath) async {
+  Future<UserInfo> updateProfilePicture(String imagePath) async {
     try {
       final fileName = imagePath.split('/')..removeWhere((e) => e.isEmpty);
       final formData = FormData.fromMap({
@@ -42,7 +42,7 @@ class ProfileRepository extends BaseApiRepository implements IProfileRepository 
         data: formData,
       );
 
-      return UserProfile.fromJson(response.data);
+      return UserInfo.fromJson(response.data);
     } catch (e) {
       rethrow;
     }

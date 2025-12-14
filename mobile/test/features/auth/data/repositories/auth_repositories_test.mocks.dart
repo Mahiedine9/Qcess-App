@@ -88,6 +88,16 @@ class MockAuthApiService extends _i1.Mock implements _i5.AuthApiService {
           as _i4.Future<bool>);
 
   @override
+  _i4.Future<Map<String, dynamic>> getUserInfo() =>
+      (super.noSuchMethod(
+            Invocation.method(#getUserInfo, []),
+            returnValue: _i4.Future<Map<String, dynamic>>.value(
+              <String, dynamic>{},
+            ),
+          )
+          as _i4.Future<Map<String, dynamic>>);
+
+  @override
   _i4.Future<T> get<T>(
     String? path, {
     Map<String, dynamic>? queryParameters,

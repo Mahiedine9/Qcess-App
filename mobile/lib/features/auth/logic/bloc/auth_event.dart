@@ -1,3 +1,5 @@
+import 'package:mobile/features/auth/data/models/user_info.dart';
+
 abstract class AuthEvent {}
 
 class LoginRequested extends AuthEvent {
@@ -13,3 +15,8 @@ class LogoutRequested extends AuthEvent {
 }
 
 class AppStarted extends AuthEvent {}
+
+class UpdateUserInfoEvent extends AuthEvent {
+  final UserInfo userInfo;
+  UpdateUserInfoEvent({required this.userInfo});
+}

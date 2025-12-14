@@ -3,53 +3,76 @@ import 'package:equatable/equatable.dart';
 class UserInfo extends Equatable {
   final int id;
   final String email;
-  final String? fullName;
   final String? firstName;
   final String? lastName;
-  final String role;
+  final String? fullName;
+  final String? role;
   final String? customRoleName;
-  final int? organizationId;
+  final int? customRoleId;
+  final String? userStatus;
+  final int? organisationId;
   final String? organizationName;
   final String? profilePictureUrl;
+  final DateTime? createdAt;
 
   const UserInfo({
     required this.id,
     required this.email,
-    this.fullName,
     this.firstName,
     this.lastName,
-    required this.role,
+    this.fullName,
+    this.role,
     this.customRoleName,
-    this.organizationId,
+    this.customRoleId,
+    this.userStatus,
+    this.organisationId,
     this.organizationName,
     this.profilePictureUrl,
+    this.createdAt,
   });
 
   String get displayName {
-    if (role == 'ADMIN' && fullName != null) {
+    if (fullName != null && fullName!.isNotEmpty) {
       return fullName!;
     }
     if (firstName != null && lastName != null) {
       return '$firstName $lastName';
     }
-    if (firstName != null) {
-      return firstName!;
-    }
+    if (firstName != null) return firstName!;
+    if (lastName != null) return lastName!;
     return email;
+  }
+
+  String get initials {
+    if (firstName != null && lastName != null) {
+      return '${firstName![0]}${lastName![0]}'.toUpperCase();
+    }
+    if (firstName != null && firstName!.isNotEmpty) {
+      return firstName![0].toUpperCase();
+    }
+    if (email.isNotEmpty) {
+      return email[0].toUpperCase();
+    }
+    return '?';
   }
 
   factory UserInfo.fromJson(Map<String, dynamic> json) {
     return UserInfo(
       id: json['id'] as int,
       email: json['email'] as String,
-      fullName: json['fullName'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
-      role: json['role'] as String,
+      fullName: json['fullName'] as String?,
+      role: json['role'] as String?,
       customRoleName: json['customRoleName'] as String?,
-      organizationId: json['organisationId'] as int?,
+      customRoleId: json['customRoleId'] as int?,
+      userStatus: json['userStatus'] as String?,
+      organisationId: json['organisationId'] as int?,
       organizationName: json['organizationName'] as String?,
       profilePictureUrl: json['profilePictureUrl'] as String?,
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'] as String)
+          : null,
     );
   }
 
@@ -57,27 +80,62 @@ class UserInfo extends Equatable {
     return {
       'id': id,
       'email': email,
-      'fullName': fullName,
       'firstName': firstName,
       'lastName': lastName,
-      'role': role,
       'customRoleName': customRoleName,
-      'organisationId': organizationId,
+      'customRoleId': customRoleId,
+      'fullName': fullName,
+      'role': role,
+      'userStatus': userStatus,
+      'organisationId': organisationId,
       'organizationName': organizationName,
       'profilePictureUrl': profilePictureUrl,
+      'createdAt': createdAt?.toIso8601String(),
     };
+  }
+
+  UserInfo copyWith({
+    int? id,
+    String? email,
+    String? firstName,
+    String? lastName,
+    String? customRoleName,
+    int? customRoleId,
+    String? userStatus,
+    int? organisationId,
+    String? organizationName,
+    String? profilePictureUrl,
+    DateTime? createdAt,
+  }) {
+    return UserInfo(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      fullName: fullName ?? this.fullName,
+      role: role ?? this.role,
+      customRoleName: customRoleName ?? this.customRoleName,
+      customRoleId: customRoleId ?? this.customRoleId,
+      userStatus: userStatus ?? this.userStatus,
+      organisationId: organisationId ?? this.organisationId,
+      organizationName: organizationName ?? this.organizationName,
+      profilePictureUrl: profilePictureUrl ?? this.profilePictureUrl,
+      createdAt: createdAt ?? this.createdAt,
+    );
   }
 
   @override
   List<Object?> get props => [
-        id,
-        email,
-        fullName,
-        firstName,
-        lastName,
-        role,
         customRoleName,
-        organizationId,
+        customRoleId,
+        userStatus,
+        organisationId,
+        organizationName,
+        profilePictureUrl,
+        createdAt,
+        fullName,
+        role,
+        userStatus,
         organizationName,
         profilePictureUrl,
       ];

@@ -9,7 +9,7 @@ import 'package:mobile/features/auth/logic/bloc/auth_bloc.dart';
 import 'package:mobile/features/auth/logic/bloc/auth_event.dart';
 import 'package:mobile/features/auth/logic/bloc/auth_state.dart';
 import 'package:mobile/features/profile/data/dto/update_profile_request.dart';
-import 'package:mobile/features/profile/data/models/user_profile.dart';
+import 'package:mobile/features/auth/data/models/user_info.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_bloc.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_event.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_state.dart';
@@ -52,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
     super.dispose();
   }
 
-  void _initializeControllers(UserProfile profile) {
+  void _initializeControllers(UserInfo profile) {
     _firstNameController.text = profile.firstName ?? '';
     _lastNameController.text = profile.lastName ?? '';
     _emailController.text = profile.email;
@@ -111,6 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
       );
       setState(() => _isEditing = false);
       _initializeControllers(state.profile);
+      context.read<AuthBloc>().add(UpdateUserInfoEvent(userInfo :state.profile));
     } else if (state is ProfileError) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -136,7 +137,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  UserProfile? _extractProfile(ProfileState state) {
+  UserInfo? _extractProfile(ProfileState state) {
     if (state is ProfileLoaded) return state.profile;
     if (state is ProfileUpdating) return state.profile;
     if (state is ProfileUpdateSuccess) return state.profile;
@@ -216,11 +217,11 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildProfileContent(UserProfile profile, bool isUpdating) {
+  Widget _buildProfileContent(UserInfo profile, bool isUpdating) {
     return CustomScrollView(
       controller: ScaffoldWithNavBar.getScrollController(
         1,
-      ), // Index 1 pour l'onglet Profil
+      ),
       slivers: [
         ProfileAppBar(
           imageUrl: profile.profilePictureUrl,
@@ -356,7 +357,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return null;
   }
 
-  Widget _buildAccountInfoCard(UserProfile profile) {
+  Widget _buildAccountInfoCard(UserInfo profile) {
     return ProfileInfoCard(
       title: 'Informations du compte',
       icon: Icons.info_outline,

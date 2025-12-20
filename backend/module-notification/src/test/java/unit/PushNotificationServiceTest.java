@@ -1,8 +1,7 @@
-package univ.lille.module_notification.application.service;
+package unit;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDateTime;
@@ -18,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import univ.lille.module_notification.application.service.PushNotificationService;
 import univ.lille.module_notification.domain.model.Notification;
 import univ.lille.module_notification.domain.port.in.DeviceTokenServicePort;
 import univ.lille.module_notification.domain.port.out.NotificationRepositoryPort;

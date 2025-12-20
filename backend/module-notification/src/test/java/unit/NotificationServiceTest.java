@@ -1,7 +1,6 @@
-package univ.lille.module_notification.application.service;
+package unit;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
@@ -18,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import univ.lille.module_notification.application.dto.NotificationDto;
+import univ.lille.module_notification.application.service.NotificationService;
 import univ.lille.module_notification.domain.model.Notification;
 import univ.lille.module_notification.domain.port.out.NotificationRepositoryPort;
 import univ.lille.module_notification.exception.ForbiddenException;

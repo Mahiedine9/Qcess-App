@@ -1,4 +1,4 @@
-package univ.lille.module_maintenance.application;
+package unit.application;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

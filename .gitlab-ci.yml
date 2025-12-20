@@ -8,7 +8,7 @@ stages:
   - release
 
 cache:
-  key: 
+  key:
     files:
       - backend/pom.xml
   paths:
@@ -26,7 +26,7 @@ variables:
 test_backend:
   stage: test
   script:
-    - mvn -B -f backend/pom.xml clean test
+    - mvn -B -f backend/pom.xml clean verify
   artifacts:
     paths:
       - backend/**/target
@@ -107,7 +107,6 @@ sonar_backend:
   allow_failure: true
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-
 
 
 package_backend:

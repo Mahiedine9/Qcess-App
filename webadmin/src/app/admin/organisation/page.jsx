@@ -495,6 +495,24 @@ const OrganisationPage = () => {
     }
   }
 
+  const handleRegenerateQr = async (zoneId) => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/access/zones/${zoneId}/regqr`,
+        { method: 'GET', credentials: 'include' }
+      );
+      if (!res.ok) {
+        throw new Error("Erreur lors de la régénération du QR code");
+      }
+      await loadZones();
+      setSuccess("QR code régénéré avec succès !");
+      setTimeout(() => setSuccess(null), 3000);
+    } catch (err) {
+      setError(err.message || "Erreur lors de la régénération du QR code");
+      setTimeout(() => setError(null), 3000);
+    }
+  }
+
   return (
     <>
       {/* Modal Créer/Modifier rôle */}
@@ -897,7 +915,7 @@ const OrganisationPage = () => {
                         })}
                       </div>
                     ) : (
-                      /* ✅ Message pour zone publique */
+                      /*  Message pour zone publique */
                       <div className="flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-4">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-100">
                           <span className="text-amber-600 text-xl">🌍</span>
@@ -1249,6 +1267,13 @@ const OrganisationPage = () => {
                               className="px-3 py-2 text-xs font-semibold text-indigo-600 bg-indigo-50 hover:bg-indigo-600 hover:text-white rounded-lg transition-all duration-200 cursor-pointer shadow-sm hover:shadow"
                             >
                               👁️ Gérer
+                            </button>
+                            <button
+                              onClick={() => handleRegenerateQr(zone.id)}
+                              className="px-3 py-2 text-xs font-semibold text-amber-600 bg-amber-50 hover:bg-amber-600 hover:text-white rounded-lg transition-all duration-200 cursor-pointer shadow-sm hover:shadow"
+                              title="Régénérer le QR Code"
+                            >
+                              🔄 Régénérer QR
                             </button>
                           </div>
                         </td>

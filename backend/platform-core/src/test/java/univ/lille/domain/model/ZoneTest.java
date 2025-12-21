@@ -1,3 +1,4 @@
+
 package univ.lille.domain.model;
 
 import org.junit.jupiter.api.Test;
@@ -54,6 +55,32 @@ class ZoneTest {
 
         assertThat(zone.isAccessibleBy(user)).isTrue();
         verify(user).hasAnyAllowedRole(List.of(1L, 2L));
+    }
+        @Test
+    void isActive_should_return_true_when_status_active() {
+        Zone zone = Zone.builder().status(univ.lille.enums.ZoneStatus.ACTIVE).build();
+        assertThat(zone.isActive()).isTrue();
+        zone.setStatus(univ.lille.enums.ZoneStatus.INACTIVE);
+        assertThat(zone.isActive()).isFalse();
+    }
+
+    @Test
+    void isPublic_should_return_true_when_no_allowed_roles() {
+        Zone zone = Zone.builder().allowedRoleIds(null).build();
+        assertThat(zone.isPublic()).isTrue();
+        zone.setAllowedRoleIds(List.of());
+        assertThat(zone.isPublic()).isTrue();
+        zone.setAllowedRoleIds(List.of(1L));
+        assertThat(zone.isPublic()).isFalse();
+    }
+
+    @Test
+    void isAllowedRole_should_return_true_if_role_in_list() {
+        Zone zone = Zone.builder().allowedRoleIds(List.of(1L, 2L)).build();
+        assertThat(zone.isAllowedRole(2L)).isTrue();
+        assertThat(zone.isAllowedRole(99L)).isFalse();
+        zone.setAllowedRoleIds(null);
+        assertThat(zone.isAllowedRole(1L)).isFalse();
     }
 
     @Test

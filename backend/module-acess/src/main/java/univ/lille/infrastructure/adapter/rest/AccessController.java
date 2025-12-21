@@ -93,6 +93,13 @@ public class AccessController {
         
         return ResponseEntity.ok(dtos);
     }
+    @GetMapping(value = "/zones/{zoneId}/regqr", produces = MediaType.IMAGE_PNG_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<byte[]> regenerateQrForZone(@PathVariable("zoneId") Long zoneId , @AuthenticationPrincipal QcessUserPrincipal principal) {
+        long orgId = principal.getOrganizationId() ; 
+        ZoneQrCode qr = zoneQrCodePort.regenerateForZone(zoneId, orgId);
+        return ResponseEntity.ok(qr.getImage()); 
+    }
 
 
 

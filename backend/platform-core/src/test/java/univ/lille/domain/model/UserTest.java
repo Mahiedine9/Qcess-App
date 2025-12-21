@@ -1,3 +1,4 @@
+
 package univ.lille.domain.model;
 
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,24 @@ class UserTest {
         assertThat(displayName).isEqualTo("John Doe");
     }
 
+        @Test
+    void isInOrganization_should_return_true_if_user_in_org() {
+        Organization org = Organization.builder().id(10L).build();
+        User user = User.builder().organization(org).build();
+        assertThat(user.isInOrganization(10L)).isTrue();
+        assertThat(user.isInOrganization(99L)).isFalse();
+    }
+
+    @Test
+    void hasCustomRole_should_return_true_if_user_has_role_with_id() {
+        CustomRole role = CustomRole.builder().id(5L).build();
+        User user = User.builder().customRole(role).build();
+        assertThat(user.hasCustomRole()).isTrue();
+        user.setCustomRole(null);
+        assertThat(user.hasCustomRole()).isFalse();
+        user.setCustomRole(CustomRole.builder().build());
+        assertThat(user.hasCustomRole()).isFalse();
+    }
     @Test
     void getDisplayName_should_fallback_to_email_when_no_name() {
         User user = User.builder()

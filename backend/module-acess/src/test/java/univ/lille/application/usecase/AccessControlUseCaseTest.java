@@ -1,3 +1,4 @@
+
 package univ.lille.application.usecase;
 
 import org.junit.jupiter.api.Test;
@@ -57,6 +58,45 @@ class AccessControlUseCaseTest {
         verifyNoInteractions(zoneRepository, accessLogRepository);
     }
 
+        @Test
+    void user_domain_methods_should_work() {
+        Organization org = createOrganization(10L);
+        CustomRole role = CustomRole.builder().id(5L).name("Staff").build();
+        User user = User.builder()
+                .id(1L)
+                .organization(org)
+                .customRole(role)
+                .build();
+
+        assertTrue(user.isInOrganization(10L));
+        assertFalse(user.isInOrganization(99L));
+        assertTrue(user.hasCustomRole());
+        user.removeRole();
+        assertFalse(user.hasCustomRole());
+    }
+
+    @Test
+    void zone_domain_methods_should_work() {
+        Zone zone = Zone.builder()
+                .id(1L)
+                .status(ZoneStatus.ACTIVE)
+                .orgId(10L)
+                .allowedRoleIds(List.of(5L, 6L))
+                .build();
+        assertTrue(zone.isActive());
+        assertFalse(zone.isPublic());
+        assertTrue(zone.isAllowedRole(5L));
+        assertFalse(zone.isAllowedRole(99L));
+
+        Zone publicZone = Zone.builder()
+                .id(2L)
+                .status(ZoneStatus.ACTIVE)
+                .orgId(10L)
+                .allowedRoleIds(null)
+                .build();
+        assertTrue(publicZone.isPublic());
+    }
+
     @Test
     void validateAccess_ZoneNotFound_ThrowsException() {
         Organization org = createOrganization(10L);
@@ -72,13 +112,15 @@ class AccessControlUseCaseTest {
     @Test
     void validateAccess_ZoneInactive_AccessDenied() {
         Organization org = createOrganization(10L);
+        CustomRole role = CustomRole.builder().id(1L).name("TestRole").build();
         User user = User.builder()
                 .id(1L)
                 .organization(org)
+                .customRole(role)
                 .firstName("John")
                 .lastName("Doe")
                 .build();
-        
+
         Zone zone = Zone.builder()
                 .id(1L)
                 .status(ZoneStatus.INACTIVE)
@@ -99,13 +141,15 @@ class AccessControlUseCaseTest {
     @Test
     void validateAccess_PublicZone_AccessGranted() {
         Organization org = createOrganization(10L);
+        CustomRole role = CustomRole.builder().id(1L).name("TestRole").build();
         User user = User.builder()
                 .id(1L)
                 .organization(org)
+                .customRole(role)
                 .firstName("John")
                 .lastName("Doe")
                 .build();
-        
+
         // Zone publique : allowedRoleIds est null ou vide
         Zone zone = Zone.builder()
                 .id(1L)

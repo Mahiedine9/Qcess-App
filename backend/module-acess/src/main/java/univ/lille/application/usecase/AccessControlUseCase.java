@@ -38,29 +38,27 @@ public class AccessControlUseCase implements AccessControlPort {
         User user = userRepository.findById(userId).orElseThrow(()-> 
         new UserNotFoundException("User Not found ")) ; 
 
-        Zone zone = zoneRepository.findById(zoneId).orElseThrow(()-> 
-        new ZoneNotFoundException("Zone not found")); 
+        Zone zone = zoneRepository.findById(zoneId).orElseThrow(() ->
+                new ZoneNotFoundException("Zone not found"));
 
-        String reason = ""; 
-        boolean granted = false; 
+        String reason = "";
+        boolean granted = false;
 
-        if (!user.getOrganization().getId().equals(zone.getOrgId())) {
-                reason = "ORGANIZATION_MISMATCH";
-        }
-        
-        else if (zone.getStatus()!= ZoneStatus.ACTIVE) {
-            reason = "ZONE_INACTIVE"; 
-        } else if (zone.getAllowedRoleIds() == null || zone.getAllowedRoleIds().isEmpty()) { 
-            granted=true; 
+        if (!user.isInOrganization(zone.getOrgId())) {
+            reason = "ORGANIZATION_MISMATCH";
+        } else if (!user.hasCustomRole()) {
+            reason = "ROLE_NOT_GIVEN";
+        } else if (!zone.isActive()) {
+            reason = "ZONE_INACTIVE";
+        } else if (zone.isPublic()) {
+            granted = true;
             user.setLastAccessAt(LocalDateTime.now());
-            reason = "PUBLIC_ZONE" ; 
-            
-        } else if ( zone.getAllowedRoleIds() != null && zone.getAllowedRoleIds().contains(user.getCustomRole().getId())) { 
-            granted = true; 
-            reason = "AUTHORIZED_ROLE" ; 
-
-        } else { 
-            reason = "ROLE_NOT_ALLOWED" ; 
+            reason = "PUBLIC_ZONE";
+        } else if (user.getCustomRole() != null && zone.isAllowedRole(user.getCustomRole().getId())) {
+            granted = true;
+            reason = "AUTHORIZED_ROLE";
+        } else {
+            reason = "ROLE_NOT_ALLOWED";
         }
 
 

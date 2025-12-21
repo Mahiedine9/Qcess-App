@@ -6,6 +6,8 @@ public interface ZoneQrCodePort {
 
     ZoneQrCode createForZone(Long zoneId, Long orgId , String zoneName) ; 
     ZoneQrCode getByZoneId( Long zoneId, Long orgId) ; 
+    ZoneQrCode regenerateForZone (Long zoneId, Long orgId) ; 
+
     
     
     

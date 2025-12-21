@@ -8,6 +8,6 @@ public interface ZoneQrCodeRepository {
     Optional<ZoneQrCode> findByZoneId(Long zoneId);
     boolean existsByZoneId(Long zoneId);
     Optional<ZoneQrCode> findByZoneIdAndOrganizationId(Long zoneId, Long organizationId);
-
+    void deleteByZoneId(Long zoneId); 
     
 }

@@ -51,5 +51,10 @@ public class ZoneQrCodeRepositoryAdapter implements ZoneQrCodeRepository {
                 .build();
     }
 
+    @Override
+    public void deleteByZoneId(Long zoneId) {
+           jpaRepository.deleteByZoneId(zoneId); 
+    }
+
 
 }

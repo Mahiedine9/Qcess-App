@@ -1,3 +1,4 @@
+
 package univ.lille.domain.model;
 
 import lombok.AllArgsConstructor;
@@ -45,7 +46,17 @@ public class Zone {
         }
         return user.hasAnyAllowedRole(allowedRoleIds);
     }
+    public boolean isActive() {
+        return status == ZoneStatus.ACTIVE;
+    }
 
+    public boolean isPublic() {
+        return allowedRoleIds == null || allowedRoleIds.isEmpty();
+    }
+
+    public boolean isAllowedRole(Long roleId) {
+        return allowedRoleIds != null && allowedRoleIds.contains(roleId);
+    }
     public void addAllowedRole(Long roleId) {
         if (roleId != null && !allowedRoleIds.contains(roleId)) {
             allowedRoleIds.add(roleId);

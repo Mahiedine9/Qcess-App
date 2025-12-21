@@ -1,3 +1,4 @@
+
 package univ.lille.domain.model;
 
 import lombok.AllArgsConstructor;
@@ -40,6 +41,16 @@ public class User {
 
     private String profilePictureUrl;
 
+
+
+
+    public boolean isInOrganization(Long orgId) {
+        return organization != null && organization.getId() != null && organization.getId().equals(orgId);
+    }
+
+    public boolean hasCustomRole() {
+        return customRole != null && customRole.getId() != null;
+    }
     public String getDisplayName() {
         if (role == UserRole.ADMIN && fullName != null) {
             return fullName;

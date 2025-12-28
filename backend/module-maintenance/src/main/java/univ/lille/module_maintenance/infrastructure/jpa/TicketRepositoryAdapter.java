@@ -5,7 +5,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import univ.lille.module_maintenance.domain.model.Ticket;
-import univ.lille.module_maintenance.domain.port.TicketRepositoryPort;
+import univ.lille.module_maintenance.domain.port.out.TicketRepositoryPort;
 import univ.lille.module_maintenance.infrastructure.dao.TicketDao;
 import univ.lille.module_maintenance.infrastructure.mapper.TicketMapper;
 

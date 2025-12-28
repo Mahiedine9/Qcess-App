@@ -20,21 +20,6 @@ class TicketDetailHeader extends StatelessWidget {
                 onPressed: onBack,
               ),
               const Spacer(),
-              PopupMenuButton<String>(
-                icon: const Icon(Icons.more_vert, color: Colors.white),
-                itemBuilder: (context) => const [
-                  PopupMenuItem(
-                    value: 'share',
-                    child: Row(
-                      children: [
-                        Icon(Icons.share, size: 20),
-                        SizedBox(width: 12),
-                        Text('Partager'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
           const SizedBox(height: 16),

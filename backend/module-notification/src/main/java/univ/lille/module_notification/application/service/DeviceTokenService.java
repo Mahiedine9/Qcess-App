@@ -3,14 +3,14 @@ package univ.lille.module_notification.application.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import univ.lille.module_notification.domain.port.in.DeviceTokenServicePort;
+import univ.lille.module_notification.domain.port.in.DeviceTokenPort;
 import univ.lille.module_notification.domain.port.out.DeviceTokenRepositoryPort;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DeviceTokenService implements DeviceTokenServicePort {
+public class DeviceTokenService implements DeviceTokenPort {
 
     private final DeviceTokenRepositoryPort deviceTokenRepository;
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import univ.lille.module_notification.application.dto.SendNotificationRequest;
 import univ.lille.module_notification.application.dto.SendNotificationResponse;
 import univ.lille.module_notification.application.dto.SendToTokenRequest;
-import univ.lille.module_notification.domain.port.in.PushNotificationServicePort;
+import univ.lille.module_notification.domain.port.in.PushNotificationPort;
 
 import java.util.Map;
 
@@ -22,7 +22,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PushNotificationController {
 
-    private final PushNotificationServicePort pushNotificationService;
+    private final PushNotificationPort pushNotificationService;
 
     @PostMapping("/send")
     @PreAuthorize("hasRole('ADMIN')")

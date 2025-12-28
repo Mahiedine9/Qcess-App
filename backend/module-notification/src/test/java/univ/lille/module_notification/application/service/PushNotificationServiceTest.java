@@ -19,19 +19,18 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import univ.lille.module_notification.domain.model.Notification;
-import univ.lille.module_notification.domain.port.in.DeviceTokenServicePort;
+import univ.lille.module_notification.domain.port.in.DeviceTokenPort;
 import univ.lille.module_notification.domain.port.out.NotificationRepositoryPort;
-import univ.lille.module_notification.domain.port.out.PushNotificationPort;
+import univ.lille.module_notification.domain.port.out.PushNotificationRepositoryPort;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("PushNotificationService Tests")
 class PushNotificationServiceTest {
 
     @Mock
-    private PushNotificationPort pushNotificationPort;
-
+    private PushNotificationRepositoryPort pushNotificationRepositoryPort;
     @Mock
-    private DeviceTokenServicePort deviceTokenService;
+    private DeviceTokenPort deviceTokenService;
 
     @Mock
     private NotificationRepositoryPort notificationRepository;
@@ -64,7 +63,7 @@ class PushNotificationServiceTest {
         pushNotificationService.sendToToken(testFcmToken, title, body, data);
 
         // Assert
-        verify(pushNotificationPort, times(1)).sendPushToToken(testFcmToken, title, body, data);
+        verify(pushNotificationRepositoryPort, times(1)).sendPushToToken(testFcmToken, title, body, data);
     }
 
     @Test
@@ -80,10 +79,10 @@ class PushNotificationServiceTest {
 
         // Assert
         verify(notificationRepository, times(1)).save(any(Notification.class));
-        verify(pushNotificationPort, times(3)).sendPushToToken(anyString(), anyString(), anyString(), any());
-        verify(pushNotificationPort).sendPushToToken("token1", "Title", "Body", Map.of());
-        verify(pushNotificationPort).sendPushToToken("token2", "Title", "Body", Map.of());
-        verify(pushNotificationPort).sendPushToToken("token3", "Title", "Body", Map.of());
+        verify(pushNotificationRepositoryPort, times(3)).sendPushToToken(anyString(), anyString(), anyString(), any());
+        verify(pushNotificationRepositoryPort).sendPushToToken("token1", "Title", "Body", Map.of());
+        verify(pushNotificationRepositoryPort).sendPushToToken("token2", "Title", "Body", Map.of());
+        verify(pushNotificationRepositoryPort).sendPushToToken("token3", "Title", "Body", Map.of());
     }
 
     @Test
@@ -98,7 +97,7 @@ class PushNotificationServiceTest {
 
         // Assert
         verify(notificationRepository, times(1)).save(any(Notification.class));
-        verify(pushNotificationPort, never()).sendPushToToken(anyString(), anyString(), anyString(), any());
+        verify(pushNotificationRepositoryPort, never()).sendPushToToken(anyString(), anyString(), anyString(), any());
     }
 
     @Test
@@ -179,7 +178,7 @@ class PushNotificationServiceTest {
 
         // Assert
         verify(notificationRepository, times(3)).save(any(Notification.class));
-        verify(pushNotificationPort, times(3)).sendPushToToken(anyString(), anyString(), anyString(), any());
+        verify(pushNotificationRepositoryPort, times(3)).sendPushToToken(anyString(), anyString(), anyString(), any());
     }
 
     @Test
@@ -195,6 +194,6 @@ class PushNotificationServiceTest {
 
         // Assert
         verify(notificationRepository, never()).save(any(Notification.class));
-        verify(pushNotificationPort, never()).sendPushToToken(anyString(), anyString(), anyString(), any());
+        verify(pushNotificationRepositoryPort, never()).sendPushToToken(anyString(), anyString(), anyString(), any());
     }
 }

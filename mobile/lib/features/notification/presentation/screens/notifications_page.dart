@@ -278,7 +278,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
     );
   }
 
-  // On peut l'améliorer si on veut gérer plus de types de notifications ou des données spécifiques (data)
   void _handleNotificationTap(notification) {
     final rawType = notification.type ?? '';
     final type = rawType.toString().toUpperCase();

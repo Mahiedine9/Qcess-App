@@ -1,4 +1,4 @@
-package univ.lille.module_maintenance.domain.port;
+package univ.lille.module_maintenance.domain.port.in;
 
 import org.springframework.lang.NonNull;
 import univ.lille.module_maintenance.domain.model.Priority;

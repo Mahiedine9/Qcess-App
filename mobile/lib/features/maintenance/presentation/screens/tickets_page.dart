@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile/core/presentation/widgets/notification_icon_button.dart';
 import 'package:mobile/core/rooting/app_routes.dart';
 import 'package:mobile/core/theme/app_theme.dart';
 import 'package:mobile/features/maintenance/logic/bloc/tickets_bloc.dart';
@@ -136,15 +137,7 @@ class _TicketsPageState extends State<TicketsPage> {
                 onPressed: () => context.pop(),
               ),
               const Spacer(),
-              IconButton(
-                icon: Icon(
-                  Icons.notifications_outlined,
-                  color: theme.colorScheme.onPrimary,
-                ),
-                onPressed: () {
-                  context.push(AppRoutes.notifications);
-                },
-              ),
+              const NotificationIconButton(),
             ],
           ),
           const SizedBox(height: 16),
@@ -444,6 +437,7 @@ class _TicketsPageState extends State<TicketsPage> {
           onRefresh: () async =>
               context.read<TicketsBloc>().add(const TicketsRequested()),
           child: ListView.builder(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             padding: const EdgeInsets.fromLTRB(24, 0, 24, 100),
             itemCount: tickets.length,
             itemBuilder: (context, index) {

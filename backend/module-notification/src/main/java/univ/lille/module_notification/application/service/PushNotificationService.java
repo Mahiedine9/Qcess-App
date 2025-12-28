@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import univ.lille.module_notification.domain.model.Notification;
-import univ.lille.module_notification.domain.port.in.DeviceTokenServicePort;
-import univ.lille.module_notification.domain.port.in.PushNotificationServicePort;
+import univ.lille.module_notification.domain.port.in.DeviceTokenPort;
+import univ.lille.module_notification.domain.port.in.PushNotificationPort;
 import univ.lille.module_notification.domain.port.out.NotificationRepositoryPort;
-import univ.lille.module_notification.domain.port.out.PushNotificationPort;
+import univ.lille.module_notification.domain.port.out.PushNotificationRepositoryPort;
 
 import java.util.List;
 import java.util.Map;
@@ -16,15 +16,15 @@ import java.util.Map;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PushNotificationService implements PushNotificationServicePort {
+public class PushNotificationService implements PushNotificationPort {
 
-    private final PushNotificationPort pushNotificationPort;
-    private final DeviceTokenServicePort deviceTokenService;
+    private final PushNotificationRepositoryPort pushNotification;
+    private final DeviceTokenPort deviceTokenService;
     private final NotificationRepositoryPort notificationRepository;
 
     @Override
     public void sendToToken(String fcmToken, String title, String body, Map<String, String> data) {
-        pushNotificationPort.sendPushToToken(fcmToken, title, body, data);
+        pushNotification.sendPushToToken(fcmToken, title, body, data);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PushNotificationService implements PushNotificationServicePort {
             return;
         }
         for (String token : tokens) {
-            pushNotificationPort.sendPushToToken(token, title, body, data);
+            pushNotification.sendPushToToken(token, title, body, data);
         }
         log.info("Push notification sent to {} device(s) for user {}", tokens.size(), userId);
     }
@@ -72,7 +72,7 @@ public class PushNotificationService implements PushNotificationServicePort {
             return;
         }
         for (String token : tokens) {
-            pushNotificationPort.sendPushToToken(token, title, body, data);
+            pushNotification.sendPushToToken(token, title, body, data);
         }
         log.info("Broadcast notification sent to {} device(s) for organization {}", tokens.size(), organizationId);
     }

@@ -21,7 +21,7 @@ import univ.lille.module_maintenance.domain.model.CommentType;
 import univ.lille.module_maintenance.domain.model.Priority;
 import univ.lille.module_maintenance.domain.model.Status;
 import univ.lille.module_maintenance.domain.model.Ticket;
-import univ.lille.module_maintenance.domain.port.TicketRepositoryPort;
+import univ.lille.module_maintenance.domain.port.out.TicketRepositoryPort;
 
 import java.time.LocalDateTime;
 import java.util.List;

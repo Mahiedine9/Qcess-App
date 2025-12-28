@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mobile/core/network/interceptors/auth_interceptor.dart';
 import 'package:mobile/core/network/interceptors/error_interceptor.dart';
 import 'package:mobile/core/network/interceptors/logging_interceptor.dart';
+import 'package:mobile/core/services/socket_dispatcher.dart';
 import 'package:mobile/features/auth/data/repositories/auth_api_service.dart';
 import 'package:mobile/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:mobile/features/auth/data/repositories/i_auth_repository.dart';
@@ -26,6 +27,8 @@ import 'package:mobile/features/profile/logic/bloc/profile_bloc.dart';
 import 'package:mobile/features/access/data/repositories/i_access_repository.dart';
 import 'package:mobile/features/access/data/repositories/access_repository.dart';
 import 'package:mobile/features/access/logic/bloc/access_bloc.dart';
+import 'package:mobile/core/services/socket_service.dart';
+import 'package:mobile/core/services/realtime_session_manager.dart';
 
 final sl = GetIt.instance;
 
@@ -137,6 +140,15 @@ Future<void> initNotificationFeature() async {
       notificationRepository: sl<INotificationRepository>(),
     ),
   );
+
+  sl.registerLazySingleton<SocketService>(
+    () => SocketService(websocketUrl: 'http://localhost:8080/ws'),
+  );
+  sl.registerLazySingleton<SocketDispatcher>(() => SocketDispatcher());
+  sl.registerLazySingleton<RealtimeSessionManager>(() => RealtimeSessionManager(
+        socket: sl<SocketService>(),
+        dispatcher: sl<SocketDispatcher>(),
+      ));
 }
 
 Future<void> initAccessFeature() async {

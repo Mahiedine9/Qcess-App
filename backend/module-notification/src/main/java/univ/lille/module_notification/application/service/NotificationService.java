@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import univ.lille.module_notification.application.dto.NotificationDto;
-import univ.lille.module_notification.domain.port.in.NotificationServicePort;
+import univ.lille.module_notification.domain.port.in.NotificationPort;
 import univ.lille.module_notification.domain.port.out.NotificationRepositoryPort;
 import univ.lille.module_notification.exception.ForbiddenException;
 import univ.lille.module_notification.exception.NotFoundException;
@@ -15,7 +15,7 @@ import univ.lille.module_notification.exception.NotFoundException;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class NotificationService implements NotificationServicePort {
+public class NotificationService implements NotificationPort {
 
     private final NotificationRepositoryPort notificationRepository;
 

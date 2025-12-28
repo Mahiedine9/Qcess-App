@@ -2,7 +2,7 @@ package univ.lille.module_notification.domain.port.in;
 
 import java.util.List;
 
-public interface DeviceTokenServicePort {
+public interface DeviceTokenPort {
     void registerToken(Long userId, Long organizationId, String fcmToken);
     List<String> getTokensByUserId(Long userId);
     List<String> getTokensByOrganizationId(Long organizationId);

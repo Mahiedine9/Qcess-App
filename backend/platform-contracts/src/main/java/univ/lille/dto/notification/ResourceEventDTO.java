@@ -12,9 +12,9 @@ import java.util.Map;
 @NoArgsConstructor
 @Getter
 public class ResourceEventDTO {
-
+    String id;
+    String timestamp;
     String resourceType; 
     Long resourceId; 
     Map<String , Object> payload; 
-    
 }

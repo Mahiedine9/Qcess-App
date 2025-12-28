@@ -15,7 +15,7 @@ import univ.lille.module_dashboard.domain.port.DashboardPort;
 import univ.lille.module_maintenance.domain.model.Priority;
 import univ.lille.module_maintenance.domain.model.Status;
 import univ.lille.module_maintenance.domain.model.Ticket;
-import univ.lille.module_maintenance.domain.port.TicketRepositoryPort;
+import univ.lille.module_maintenance.domain.port.out.TicketRepositoryPort;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

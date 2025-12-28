@@ -10,12 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import univ.lille.enums.NotificationType;
 import univ.lille.events.NotificationEvent;
 import univ.lille.module_maintenance.domain.model.Status;
+import univ.lille.module_maintenance.domain.port.in.NotificationPublisherPort;
 
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class NotificationPublisher {
+public class NotificationPublisher implements NotificationPublisherPort {
     
     private static final String KEY_TICKET_ID = "ticketId";
     private static final String KEY_NEW_STATUS = "newStatus";

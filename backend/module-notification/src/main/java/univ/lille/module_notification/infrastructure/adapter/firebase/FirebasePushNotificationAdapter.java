@@ -5,7 +5,7 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import lombok.extern.slf4j.Slf4j;
-import univ.lille.module_notification.domain.port.out.PushNotificationPort;
+import univ.lille.module_notification.domain.port.out.PushNotificationRepositoryPort;
 
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Slf4j
 @Component
-public class FirebasePushNotificationAdapter implements PushNotificationPort {
+public class FirebasePushNotificationAdapter implements PushNotificationRepositoryPort {
 
     @Override
     public void sendPushToToken(String fcmToken, String title, String body) {

@@ -14,14 +14,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import univ.lille.application.service.AuthenticationService;
 import univ.lille.module_notification.application.dto.NotificationDto;
-import univ.lille.module_notification.domain.port.in.NotificationServicePort;
+import univ.lille.module_notification.domain.port.in.NotificationPort;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/notifications")
 @RequiredArgsConstructor
 public class NotificationController {
-    private final NotificationServicePort notificationService;
+    private final NotificationPort notificationService;
     private final AuthenticationService authenticationService;
 
     @GetMapping

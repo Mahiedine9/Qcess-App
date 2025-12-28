@@ -14,8 +14,9 @@ import univ.lille.module_maintenance.domain.model.CommentType;
 import univ.lille.module_maintenance.domain.model.Priority;
 import univ.lille.module_maintenance.domain.model.Status;
 import univ.lille.module_maintenance.domain.model.Ticket;
-import univ.lille.module_maintenance.domain.port.TicketRepositoryPort;
-import univ.lille.module_maintenance.domain.port.TicketServicePort;
+import univ.lille.module_maintenance.domain.port.in.NotificationPublisherPort;
+import univ.lille.module_maintenance.domain.port.in.TicketServicePort;
+import univ.lille.module_maintenance.domain.port.out.TicketRepositoryPort;
 import univ.lille.domain.port.in.UserPort;
 import univ.lille.domain.port.out.NotificationPort;
 import univ.lille.dto.auth.user.UserDTO;
@@ -34,7 +35,7 @@ import java.util.stream.Collectors;
 public class TicketService implements TicketServicePort {
 
     private final TicketRepositoryPort ticketRepository;
-    private final NotificationPublisher notificationPublisher;
+    private final NotificationPublisherPort notificationPublisher;
     private final UserPort userPort;
     private final NotificationPort notificationPort;
 
@@ -144,7 +145,6 @@ public class TicketService implements TicketServicePort {
                 }
             });
         } catch (Exception e) {
-            // Log error but continue without names
             System.err.println("Failed to fetch users for ticket enrichment: " + e.getMessage());
         }
     }

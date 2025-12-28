@@ -4,7 +4,7 @@ import java.util.List;
 
 import univ.lille.module_notification.application.dto.NotificationDto;
 
-public interface NotificationServicePort {
+public interface NotificationPort {
     List<NotificationDto> getNotificationsByUserId(Long userId);
     
     List<NotificationDto> getUnreadNotificationsByUserId(Long userId);

@@ -45,6 +45,7 @@ class TicketsBloc extends Bloc<TicketsEvent, TicketsState> {
       _onSearchChanged,
       transformer: debounce(const Duration(milliseconds: 300)),
     );
+    on<TicketDetailCleared>(_onTicketDetailCleared);
     on<ResetTickets>(_onResetTickets);
   }
 
@@ -119,7 +120,28 @@ class TicketsBloc extends Bloc<TicketsEvent, TicketsState> {
     emit(state.copyWith(isDetailLoading: true, error: null));
     try {
       final ticket = await maintenanceRepository.getTicketById(event.id);
-      emit(state.copyWith(selectedTicket: ticket, isDetailLoading: false));
+
+      // Met à jour la liste et les tickets visibles pour garder
+      // l'écran de liste et le détail synchronisés.
+      List<TicketDTO> updatedTickets;
+      if (state.tickets.isEmpty) {
+        updatedTickets = [ticket];
+      } else {
+        updatedTickets = _sortByCreatedDesc(
+          state.tickets.map((t) => t.id == ticket.id ? ticket : t).toList(),
+        );
+      }
+
+      final visible = _applySearchFilter(updatedTickets, state.searchQuery);
+
+      emit(
+        state.copyWith(
+          selectedTicket: ticket,
+          isDetailLoading: false,
+          tickets: updatedTickets,
+          visibleTickets: visible,
+        ),
+      );
     } catch (e) {
       final userMessage = _getUserFriendlyError(e, 'charger les détails du ticket');
       emit(state.copyWith(isDetailLoading: false, error: userMessage));
@@ -243,6 +265,25 @@ class TicketsBloc extends Bloc<TicketsEvent, TicketsState> {
     }
   }
 
+  Future<void> _onTicketDetailCleared(
+    TicketDetailCleared event,
+    Emitter<TicketsState> emit,
+  ) async {
+    emit(
+      TicketsState(
+        status: state.status,
+        tickets: state.tickets,
+        visibleTickets: state.visibleTickets,
+        error: state.error,
+        selectedTicket: null,
+        isDetailLoading: state.isDetailLoading,
+        filterStatus: state.filterStatus,
+        filterPriority: state.filterPriority,
+        searchQuery: state.searchQuery,
+      ),
+    );
+  }
+
   Future<void> _onSearchChanged(
     TicketSearchChanged event,
     Emitter<TicketsState> emit,
@@ -255,7 +296,6 @@ class TicketsBloc extends Bloc<TicketsEvent, TicketsState> {
     ResetTickets event,
     Emitter<TicketsState> emit,
   ) async {
-    print('[TicketsBloc] ✅ Reset tickets');
     emit(TicketsState());
   }
 }

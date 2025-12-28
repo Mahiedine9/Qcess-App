@@ -25,17 +25,22 @@ class TicketDetailPage extends StatefulWidget {
 class _TicketDetailPageState extends State<TicketDetailPage> {
   final _commentCtrl = TextEditingController();
   final _scrollController = ScrollController();
+  int _lastCommentsCount = 0;
+  late final TicketsBloc _ticketsBloc;
 
   @override
   void initState() {
     super.initState();
+    _ticketsBloc = context.read<TicketsBloc>();
     if (widget.initialTicket == null && widget.ticketId != null) {
-      context.read<TicketsBloc>().add(TicketDetailRequested(widget.ticketId!));
+      _ticketsBloc.add(TicketDetailRequested(widget.ticketId!));
     }
   }
 
   @override
   void dispose() {
+    _ticketsBloc.add(const TicketDetailCleared());
+
     _commentCtrl.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -43,12 +48,24 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<TicketsBloc>();
+    final bloc = _ticketsBloc;
     final theme = Theme.of(context);
 
-    return BlocBuilder<TicketsBloc, TicketsState>(
+    return BlocConsumer<TicketsBloc, TicketsState>(
+      listener: (context, state) {
+        final effectiveTicket =
+            state.selectedTicket ?? _getTicket(state) ?? widget.initialTicket;
+        if (effectiveTicket == null) return;
+
+        final newCount = effectiveTicket.comments.length;
+        if (newCount > _lastCommentsCount) {
+          _scrollToBottom();
+        }
+        _lastCommentsCount = newCount;
+      },
       builder: (context, state) {
-        final effectiveTicket = _getTicket(state) ?? widget.initialTicket;
+        final effectiveTicket =
+            state.selectedTicket ?? _getTicket(state) ?? widget.initialTicket;
 
         if (effectiveTicket == null) {
           return Scaffold(
@@ -88,6 +105,7 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                             ),
                             child: CustomScrollView(
                               controller: _scrollController,
+                              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                               slivers: [
                                 SliverToBoxAdapter(
                                   child: TicketInfoSection(
@@ -97,16 +115,9 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
                                 const SliverToBoxAdapter(
                                   child: Divider(height: 1),
                                 ),
-                                SliverList(
-                                  delegate: SliverChildBuilderDelegate(
-                                    (context, index) {
-                                      final comment =
-                                          effectiveTicket.comments[index];
-                                      return TicketCommentsList(
-                                        comments: [comment],
-                                      );
-                                    },
-                                    childCount: effectiveTicket.comments.length,
+                                SliverToBoxAdapter(
+                                  child: TicketCommentsList(
+                                    comments: effectiveTicket.comments,
                                   ),
                                 ),
                               ],
@@ -182,15 +193,19 @@ class _TicketDetailPageState extends State<TicketDetailPage> {
     );
 
     _commentCtrl.clear();
+    _scrollToBottom();
+  }
 
-    Future.delayed(const Duration(milliseconds: 300), () {
-      if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
-      }
+  void _scrollToBottom() {
+    if (!_scrollController.hasClients) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scrollController.hasClients) return;
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
     });
   }
 }

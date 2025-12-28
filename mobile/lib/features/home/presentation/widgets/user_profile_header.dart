@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/core/utils/responsive_utils.dart';
-import 'package:mobile/core/appConfig.dart';
+import 'package:mobile/core/app_config.dart';
 import 'package:mobile/features/home/data/models/user_dashboard.dart';
 
 class UserProfileHeader extends StatelessWidget {

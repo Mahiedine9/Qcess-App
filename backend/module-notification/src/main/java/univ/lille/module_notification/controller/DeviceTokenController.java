@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import univ.lille.application.service.AuthenticationService;
 import univ.lille.module_notification.application.dto.RegisterTokenRequest;
-import univ.lille.module_notification.domain.port.in.DeviceTokenServicePort;
+import univ.lille.module_notification.domain.port.in.DeviceTokenPort;
 
 @Slf4j
 @RestController
@@ -18,7 +18,7 @@ import univ.lille.module_notification.domain.port.in.DeviceTokenServicePort;
 @RequiredArgsConstructor
 public class DeviceTokenController {
 
-    private final DeviceTokenServicePort deviceTokenService;
+    private final DeviceTokenPort deviceTokenService;
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register-token")

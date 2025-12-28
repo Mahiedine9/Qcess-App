@@ -20,7 +20,7 @@ import univ.lille.module_maintenance.application.dto.UpdateTicketStatusRequest;
 import univ.lille.module_maintenance.domain.model.Priority;
 import univ.lille.module_maintenance.domain.model.Status;
 import univ.lille.module_maintenance.domain.model.Ticket;
-import univ.lille.module_maintenance.domain.port.TicketServicePort;
+import univ.lille.module_maintenance.domain.port.in.TicketServicePort;
 
 import java.util.List;
 import java.util.Objects;

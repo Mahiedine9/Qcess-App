@@ -36,32 +36,29 @@ class ProfileAvatar extends StatelessWidget {
 
     return Stack(
       children: [
-        Hero(
-          tag: 'profile_avatar',
-          child: Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: theme.colorScheme.surface,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.2),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: fullImageUrl != null
-                ? ClipOval(
-                    child: Image.network(
-                      fullImageUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => _buildPlaceholder(context),
-                    ),
-                  )
-                : _buildPlaceholder(context),
+        Container(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: theme.colorScheme.surface,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.2),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
+          child: fullImageUrl != null
+              ? ClipOval(
+                  child: Image.network(
+                    fullImageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => _buildPlaceholder(context),
+                  ),
+                )
+              : _buildPlaceholder(context),
         ),
         if (showEditButton)
           Positioned(

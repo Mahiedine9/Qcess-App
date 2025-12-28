@@ -78,6 +78,13 @@ class TicketSearchChanged extends TicketsEvent {
   List<Object?> get props => [query];
 }
 
+class TicketDetailCleared extends TicketsEvent {
+  const TicketDetailCleared();
+
+  @override
+  List<Object?> get props => [];
+}
+
 class ResetTickets extends TicketsEvent {
   const ResetTickets();
 

@@ -61,7 +61,6 @@ class AppRouter {
     }
 
     if (authState is AuthUnauthenticated) {
-      // Réinitialiser tous les BLoCs lors de la déconnexion
       _resetAllBlocs(context);
       return isAuthPage ? null : AppRoutes.auth;
     }

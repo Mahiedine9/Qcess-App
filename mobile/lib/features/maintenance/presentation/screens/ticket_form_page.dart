@@ -31,25 +31,29 @@ class _TicketFormPageState extends State<TicketFormPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     
-    return Scaffold(
-      backgroundColor: theme.colorScheme.primary,
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildHeader(theme),
-            
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surface,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(32),
-                    topRight: Radius.circular(32),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      behavior: HitTestBehavior.translucent,
+      child: Scaffold(
+        backgroundColor: theme.colorScheme.primary,
+        body: SafeArea(
+          child: Column(
+            children: [
+              _buildHeader(theme),
+              
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(32),
+                      topRight: Radius.circular(32),
+                    ),
                   ),
-                ),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
-                  child: Form(
+                  child: SingleChildScrollView(
+                    keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+                    padding: const EdgeInsets.all(24),
+                    child: Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,8 +103,8 @@ class _TicketFormPageState extends State<TicketFormPage> {
                   ),
                 ),
               ),
-            ),
-          ],
+          )],
+          ),
         ),
       ),
     );

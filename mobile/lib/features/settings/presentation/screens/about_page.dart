@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/core/theme/app_theme.dart';
+import 'package:mobile/features/splash/presentation/widgets/splash_animated_logo.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
-  // TODO: Mettre à jour avec les vraies URLs
   static const String privacyPolicyUrl = 'https://qcess.com/privacy';
   static const String termsOfServiceUrl = 'https://qcess.com/terms';
   static const String appVersion = '1.0.0';
@@ -25,42 +25,8 @@ class AboutPage extends StatelessWidget {
           children: [
             const SizedBox(height: AppTheme.spacingLarge),
 
-            // ─────────────────────────────────────────────────────────────────
-            // Logo & Nom de l'app
-            // ─────────────────────────────────────────────────────────────────
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                color: theme.colorScheme.primary,
-                borderRadius: BorderRadius.circular(AppTheme.radiusLarge),
-                boxShadow: [
-                  BoxShadow(
-                    color: theme.colorScheme.primary.withOpacity(0.3),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  'Q',
-                  style: TextStyle(
-                    color: theme.colorScheme.onPrimary,
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+            const SplashAnimatedLogo(),
             const SizedBox(height: AppTheme.spacingMedium),
-            Text(
-              'Qcess',
-              style: theme.textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: AppTheme.spacingXSmall),
             Text(
               'Version $appVersion ($buildNumber)',
               style: theme.textTheme.bodyMedium?.copyWith(
@@ -70,9 +36,6 @@ class AboutPage extends StatelessWidget {
 
             const SizedBox(height: AppTheme.spacingXLarge),
 
-            // ─────────────────────────────────────────────────────────────────
-            // Description
-            // ─────────────────────────────────────────────────────────────────
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(AppTheme.spacingMedium),
@@ -94,9 +57,6 @@ class AboutPage extends StatelessWidget {
 
             const SizedBox(height: AppTheme.spacingXLarge),
 
-            // ─────────────────────────────────────────────────────────────────
-            // Liens légaux
-            // ─────────────────────────────────────────────────────────────────
             Card(
               elevation: 0,
               shape: RoundedRectangleBorder(
@@ -122,9 +82,6 @@ class AboutPage extends StatelessWidget {
 
             const SizedBox(height: AppTheme.spacingXLarge),
 
-            // ─────────────────────────────────────────────────────────────────
-            // Copyright
-            // ─────────────────────────────────────────────────────────────────
             Text(
               '© ${DateTime.now().year} Qcess. Tous droits réservés.',
               style: theme.textTheme.bodySmall?.copyWith(

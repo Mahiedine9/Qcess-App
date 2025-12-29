@@ -32,7 +32,14 @@ import 'package:mobile/core/services/realtime_session_manager.dart';
 
 final sl = GetIt.instance;
 
-const String apiBaseUrl = 'http://localhost:8080';
+const String apiBaseUrl = String.fromEnvironment(
+  'API_BASE_URL',
+  defaultValue: 'http://localhost:8080',
+);
+const String websocketUrl = String.fromEnvironment(
+  'WS_BASE_URL',
+  defaultValue: 'http://localhost:8080/ws',
+);
 const Duration httpTimeout = Duration(seconds: 30);
 
 Future<void> initDependencies() async {
@@ -142,7 +149,7 @@ Future<void> initNotificationFeature() async {
   );
 
   sl.registerLazySingleton<SocketService>(
-    () => SocketService(websocketUrl: 'http://localhost:8080/ws'),
+    () => SocketService(websocketUrl: websocketUrl),
   );
   sl.registerLazySingleton<SocketDispatcher>(() => SocketDispatcher());
   sl.registerLazySingleton<RealtimeSessionManager>(() => RealtimeSessionManager(

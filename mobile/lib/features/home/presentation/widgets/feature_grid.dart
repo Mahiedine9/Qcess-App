@@ -93,7 +93,7 @@ class FeatureGrid extends StatelessWidget {
         context.push(AppRoutes.notifications);
         break;
       case 'Ouvrir':
-        context.push(AppRoutes.scanner);
+        context.go(AppRoutes.scanner);
         break;
       default:
         _showComingSoon(context, label);

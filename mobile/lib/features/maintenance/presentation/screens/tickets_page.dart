@@ -250,6 +250,7 @@ class _TicketsPageState extends State<TicketsPage> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
+      isScrollControlled: true,
       builder: (context) {
         Status? selectedStatus = context.read<TicketsBloc>().state.filterStatus;
         Priority? selectedPriority = context
@@ -258,100 +259,125 @@ class _TicketsPageState extends State<TicketsPage> {
             .filterPriority;
         return StatefulBuilder(
           builder: (context, setModalState) {
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Text(
-                        'Filtres',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          setModalState(() {
-                            selectedStatus = null;
-                            selectedPriority = null;
-                          });
-                        },
-                        child: const Text('Réinitialiser'),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'Statut',
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      _statusChip(
-                        null,
-                        'Tous',
-                        selectedStatus == null,
-                        (val) => setModalState(() => selectedStatus = null),
-                      ),
-                      for (final s in Status.values)
-                        _statusChip(
-                          s,
-                          s.getDisplayName(),
-                          selectedStatus == s,
-                          (val) => setModalState(() => selectedStatus = s),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Priorité',
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      _priorityChip(
-                        null,
-                        'Toutes',
-                        selectedPriority == null,
-                        (val) => setModalState(() => selectedPriority = null),
-                      ),
-                      for (final p in Priority.values)
-                        _priorityChip(
-                          p,
-                          p.getDisplayName(),
-                          selectedPriority == p,
-                          (val) => setModalState(() => selectedPriority = p),
-                        ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        context.pop();
-                        context.read<TicketsBloc>().add(
-                          TicketsRequested(
-                            status: selectedStatus,
-                            priority: selectedPriority,
+            return SafeArea(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final maxHeight = constraints.maxHeight * 0.9;
+                  return ConstrainedBox(
+                    constraints: BoxConstraints(maxHeight: maxHeight),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                'Filtres',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const Spacer(),
+                              TextButton(
+                                onPressed: () {
+                                  setModalState(() {
+                                    selectedStatus = null;
+                                    selectedPriority = null;
+                                  });
+                                },
+                                child: const Text('Réinitialiser'),
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                      child: const Text('Appliquer les filtres'),
+                          const SizedBox(height: 12),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Statut',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Wrap(
+                                    spacing: 8,
+                                    runSpacing: 8,
+                                    children: [
+                                      _statusChip(
+                                        null,
+                                        'Tous',
+                                        selectedStatus == null,
+                                        (val) => setModalState(
+                                            () => selectedStatus = null),
+                                      ),
+                                      for (final s in Status.values)
+                                        _statusChip(
+                                          s,
+                                          s.getDisplayName(),
+                                          selectedStatus == s,
+                                          (val) => setModalState(
+                                              () => selectedStatus = s),
+                                        ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+                                  const Text(
+                                    'Priorité',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Wrap(
+                                    spacing: 8,
+                                    runSpacing: 8,
+                                    children: [
+                                      _priorityChip(
+                                        null,
+                                        'Toutes',
+                                        selectedPriority == null,
+                                        (val) => setModalState(
+                                            () => selectedPriority = null),
+                                      ),
+                                      for (final p in Priority.values)
+                                        _priorityChip(
+                                          p,
+                                          p.getDisplayName(),
+                                          selectedPriority == p,
+                                          (val) => setModalState(
+                                              () => selectedPriority = p),
+                                        ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                context.pop();
+                                context.read<TicketsBloc>().add(
+                                  TicketsRequested(
+                                    status: selectedStatus,
+                                    priority: selectedPriority,
+                                  ),
+                                );
+                              },
+                              child: const Text('Appliquer les filtres'),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
             );
           },

@@ -96,34 +96,6 @@ class UserProfileHeader extends StatelessWidget {
         ),
 
         SizedBox(height: spacing * 0.75),
-
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.15),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.badge_outlined,
-                size: 14,
-                color: Colors.white.withOpacity(0.8),
-              ),
-              const SizedBox(width: 6),
-              Text(
-                'ID: EMP-2024-084',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.white.withOpacity(0.8),
-                  fontWeight: FontWeight.w500,
-                  fontSize: isMobile ? 12 : 13,
-                  letterSpacing: 0.5,
-                ),
-              ),
-            ],
-          ),
-        ),
       ],
     );
   }

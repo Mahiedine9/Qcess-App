@@ -53,7 +53,7 @@ class ZoneQrCodeRepositoryAdapterTest {
         entity.setId(1L);
         entity.setZoneId(5L);
 
-        when(jpaRepository.findById(5L)).thenReturn(Optional.of(entity));
+        when(jpaRepository.findByZoneId(5L)).thenReturn(Optional.of(entity));
 
         Optional<ZoneQrCode> result = adapter.findByZoneId(5L);
 

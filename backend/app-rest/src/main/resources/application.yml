@@ -1,0 +1,48 @@
+# ⚠️ CONFIGURATION DE DÉVELOPPEMENT/TEST
+# Ces valeurs sont utilisées pour le développement local et les tests
+# NE PAS utiliser en production
+
+spring:
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qcessdb
+    username: qcessuser
+    password: qcess  # Mot de passe de test (utilisé par docker-compose.yml)
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: u6114665278@gmail.com  # Email de test pour les notifications
+    password: ucehdzmhuygomdqm  # Mot de passe d'application Gmail
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+jwt:
+  secret: XthV4FGLPLLr4baUZkgEE1glx4ZzOtwioAFgrEPHZUOtoFgFo56f3bYvon4Ad0dggQuE2ygsOSENEkfGiWirQw==  # Secret de test
+  expiration: 86400000  # 24 heures
+  expiration-remember-me: 604800000  # 7 jours
+app:
+  mail:
+    from: u6114665278@gmail.com
+    fromName: Platine QCess
+
+server:
+  port: 8080
+
+logging:
+  level:
+    univ.lille: DEBUG

@@ -23,23 +23,24 @@ public class ZoneQrCodeRepositoryAdapter implements ZoneQrCodeRepository {
         entity.setImage(qr.getImage());
         entity.setFormat(qr.getFormat());
         ZoneQrCodeEntity saved = jpaRepository.save(entity); 
-        return mapToDomain(saved); 
-   
+        return mapToDomain(saved);
     }
 
     @Override
     public Optional<ZoneQrCode> findByZoneId(Long zoneId) {
-        return jpaRepository.findById(zoneId).map(this::mapToDomain); 
+        return jpaRepository.findByZoneId(zoneId).map(this::mapToDomain);
     }
 
     @Override
     public boolean existsByZoneId(Long zoneId) {
-        return jpaRepository.existsByZoneId(zoneId); 
+        return jpaRepository.existsByZoneId(zoneId);
     }
+
     @Override
     public Optional<ZoneQrCode> findByZoneIdAndOrganizationId(Long zoneId, Long organizationId) {
         return jpaRepository.findByZoneIdAndOrganizationId(zoneId, organizationId).map(this:: mapToDomain); 
     }
+    
     private ZoneQrCode mapToDomain(ZoneQrCodeEntity entity) {
         return ZoneQrCode.builder()
                 .id(entity.getId())

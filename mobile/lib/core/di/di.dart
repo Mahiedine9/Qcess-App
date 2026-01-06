@@ -26,7 +26,9 @@ import 'package:mobile/features/profile/data/repositories/i_profile_repository.d
 import 'package:mobile/features/profile/logic/bloc/profile_bloc.dart';
 import 'package:mobile/features/access/data/repositories/i_access_repository.dart';
 import 'package:mobile/features/access/data/repositories/access_repository.dart';
-import 'package:mobile/features/access/logic/bloc/access_bloc.dart';
+import 'package:mobile/features/access/data/repositories/i_zone_repository.dart';
+import 'package:mobile/features/access/data/repositories/zone_repository.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_bloc.dart';
 import 'package:mobile/core/services/socket_service.dart';
 import 'package:mobile/core/services/realtime_session_manager.dart';
 
@@ -161,6 +163,10 @@ Future<void> initNotificationFeature() async {
 Future<void> initAccessFeature() async {
   sl.registerLazySingleton<IAccessRepository>(
     () => AccessRepository(sl<Dio>()),
+  );
+
+  sl.registerLazySingleton<IZoneRepository>(
+    () => ZoneRepository(sl<Dio>()),
   );
 
   sl.registerFactory<AccessBloc>(

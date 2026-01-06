@@ -5,11 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import univ.lille.application.usecase.mapper.ZoneMapper;
 import univ.lille.domain.exception.CustomRoleException;
+import univ.lille.domain.exception.UserNotFoundException;
 import univ.lille.domain.exception.ZoneNotFoundException;
 import univ.lille.domain.model.CustomRole;
+import univ.lille.domain.model.User;
 import univ.lille.domain.model.Zone;
 import univ.lille.domain.port.in.ZoneManagementPort;
 import univ.lille.domain.port.out.CustomRoleRepository;
+import univ.lille.domain.port.out.UserRepository;
 import univ.lille.domain.port.out.ZoneEventPublisher;
 import univ.lille.domain.port.out.ZoneRepository;
 import univ.lille.dto.zone.CreateZoneRequest;
@@ -33,6 +36,7 @@ public class ZoneUseCase implements ZoneManagementPort {
     private final ZoneRepository zoneRepository ;
     private final ZoneEventPublisher eventPublisher ;
     private final CustomRoleRepository customRoleRepository ;
+    private final UserRepository userRepository;
 
 
     /**
@@ -192,6 +196,28 @@ public class ZoneUseCase implements ZoneManagementPort {
       List<Zone> zones =   zoneRepository.findByOrganizationIdAndStatus(orgId,ZoneStatus.ACTIVE);
 
         return zones.stream()
+                .map(ZoneMapper::toDTO)
+                .toList();
+    }
+
+    @Override
+    public List<ZoneDTO> getAccessibleZonesForUser(Long userId, Long orgId) {
+        User user = userRepository.findByIdAndOrganizationId(userId, orgId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        List<Zone> zones = zoneRepository.findByOrganizationIdAndStatus(orgId, ZoneStatus.ACTIVE);
+
+        if (user.isAdmin()) {
+            return zones.stream().map(ZoneMapper::toDTO).toList();
+        }
+
+        if (!user.hasCustomRole()) {
+            return List.of();
+        }
+
+        Long roleId = user.getCustomRole().getId();
+        return zones.stream()
+                .filter(z -> z.isPublic() || z.isAllowedRole(roleId))
                 .map(ZoneMapper::toDTO)
                 .toList();
     }

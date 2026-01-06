@@ -19,5 +19,6 @@ public interface ZoneManagementPort {
     void addAllowedRolesToZone(Long zoneId, List<Long> roleIds, Long orgId);
 
     List<ZoneDTO> getZonesForOrg(Long orgId) ;
+    List<ZoneDTO> getAccessibleZonesForUser(Long userId, Long orgId);
     //ZoneDTO updateZone( );
 }

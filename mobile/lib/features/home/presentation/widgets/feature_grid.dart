@@ -86,6 +86,9 @@ class FeatureGrid extends StatelessWidget {
 
   void _handleFeatureTap(BuildContext context, String label) {
     switch (label) {
+      case 'Mes accès':
+        context.push(AppRoutes.myAccess);
+        break;
       case 'Maintenance':
         context.push(AppRoutes.maintenanceTickets);
         break;

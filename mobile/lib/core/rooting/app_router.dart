@@ -24,6 +24,7 @@ import 'package:mobile/features/settings/presentation/screens/settings_page.dart
 import 'package:mobile/features/settings/presentation/screens/help_page.dart';
 import 'package:mobile/features/settings/presentation/screens/about_page.dart';
 import 'package:mobile/features/access/presentation/screens/scanner_page.dart';
+import 'package:mobile/features/access/presentation/screens/my_access_page.dart';
 import 'package:mobile/features/splash/logic/bloc/splash_bloc.dart';
 import 'package:mobile/features/splash/logic/bloc/splash_state.dart';
 import 'package:mobile/features/splash/presentation/screens/splash_page.dart';
@@ -141,6 +142,18 @@ class AppRouter {
         return null;
       },
       builder: (context, state) => const NotificationsPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.myAccess,
+      name: AppRoutes.myAccessName,
+      redirect: (context, state) {
+        final authState = _authBloc.state;
+        if (authState is! AuthAuthenticated) {
+          return AppRoutes.auth;
+        }
+        return null;
+      },
+      builder: (context, state) => const MyAccessPage(),
     ),
     GoRoute(
       path: AppRoutes.settings,

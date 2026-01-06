@@ -313,9 +313,9 @@ public class TicketService implements TicketServicePort {
         Long ownerId = savedTicket.getCreatedByUserId();
         if (ownerId != null && !ownerId.equals(authorUserId)) {
             notificationPublisher.notifyAdminCommentAdded(
-                ownerId, 
-                ticketId, 
-                savedTicket.getTitle(), 
+                ownerId,
+                ticketId,
+                savedTicket.getTitle(),
                 authorUserName
             );
         }

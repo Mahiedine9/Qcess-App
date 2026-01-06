@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile/features/access/logic/bloc/access_bloc.dart';
-import 'package:mobile/features/access/logic/bloc/access_event.dart';
-import 'package:mobile/features/access/logic/bloc/access_state.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_bloc.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_event.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_state.dart';
 import 'package:mobile/features/access/presentation/widgets/access_result_dialog.dart';
 import 'package:mobile/features/access/presentation/widgets/scannerWidget.dart';
 

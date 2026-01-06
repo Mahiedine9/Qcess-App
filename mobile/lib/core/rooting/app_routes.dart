@@ -21,6 +21,9 @@ class AppRoutes {
   static const scanner = '/scanner';
   static const scannerName = 'scanner';
 
+  static const myAccess = '/my-access';
+  static const myAccessName = 'myAccess';
+
   static const settings = '/settings';
   static const settingsName = 'settings';
   static const settingsProfile = '/settings/profile';

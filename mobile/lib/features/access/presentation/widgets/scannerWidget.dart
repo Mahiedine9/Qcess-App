@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/core/theme/app_colors.dart';
-import 'package:mobile/features/access/logic/bloc/access_bloc.dart';
-import 'package:mobile/features/access/logic/bloc/access_event.dart';
-import 'package:mobile/features/access/logic/bloc/access_state.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_bloc.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_event.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_state.dart';
 import 'package:mobile/features/auth/logic/bloc/auth_bloc.dart';
 import 'package:mobile/features/auth/logic/bloc/auth_state.dart';
 import 'package:mobile/features/home/logic/bloc/dashboard_bloc.dart';
@@ -197,7 +197,6 @@ class _ScannerWidgetState extends State<ScannerWidget>
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
-            // Bouton retour
             Container(
               decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.5),
@@ -220,16 +219,13 @@ class _ScannerWidgetState extends State<ScannerWidget>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Cadre de scan avec animation
           SizedBox(
             height: 300,
             width: 300,
             child: Stack(
               children: [
-                // Coins du cadre
                 _buildScannerCorners(),
                 
-                // Ligne de scan animée
                 if (!_isScanning) _buildScanLine(),
               ],
             ),
@@ -237,7 +233,6 @@ class _ScannerWidgetState extends State<ScannerWidget>
           
           const SizedBox(height: 40),
           
-          // Texte d'instruction
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             decoration: BoxDecoration(
@@ -289,7 +284,6 @@ class _ScannerWidgetState extends State<ScannerWidget>
 
     return Stack(
       children: [
-        // Coin haut gauche
         Positioned(
           top: 0,
           left: 0,
@@ -307,7 +301,6 @@ class _ScannerWidgetState extends State<ScannerWidget>
             ),
           ),
         ),
-        // Coin haut droit
         Positioned(
           top: 0,
           right: 0,
@@ -325,7 +318,6 @@ class _ScannerWidgetState extends State<ScannerWidget>
             ),
           ),
         ),
-        // Coin bas gauche
         Positioned(
           bottom: 0,
           left: 0,
@@ -343,7 +335,6 @@ class _ScannerWidgetState extends State<ScannerWidget>
             ),
           ),
         ),
-        // Coin bas droit
         Positioned(
           bottom: 0,
           right: 0,

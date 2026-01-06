@@ -54,6 +54,16 @@ public class ZoneController {
         return ResponseEntity.ok(zones);
     }
 
+    @GetMapping("/me/accessible")
+    public ResponseEntity<List<ZoneDTO>> getAccessibleZonesForCurrentUser(
+            @AuthenticationPrincipal QcessUserPrincipal principal) {
+        List<ZoneDTO> zones = zonePort.getAccessibleZonesForUser(
+                principal.getId(),
+                principal.getOrganizationId()
+        );
+        return ResponseEntity.ok(zones);
+    }
+
     @PatchMapping("/{zoneId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ZoneDTO> updateZone (@PathVariable("zoneId") Long zoneId ,@Valid @RequestBody UpdateZoneRequest request, @AuthenticationPrincipal QcessUserPrincipal principal) {

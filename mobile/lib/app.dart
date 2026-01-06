@@ -16,7 +16,8 @@ import 'package:mobile/features/notification/presentation/notification_initializ
 import 'package:mobile/features/profile/data/repositories/i_profile_repository.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_bloc.dart';
 import 'package:mobile/features/access/data/repositories/i_access_repository.dart';
-import 'package:mobile/features/access/logic/bloc/access_bloc.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_bloc.dart';
+import 'package:mobile/features/access/logic/bloc/my_access/my_access_bloc.dart';
 import 'package:mobile/features/splash/logic/bloc/splash_bloc.dart';
 import 'package:mobile/features/theme/logic/bloc/theme_bloc.dart';
 import 'package:mobile/features/theme/logic/bloc/theme_state.dart';
@@ -65,6 +66,12 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<AccessBloc>(
           create: (_) => AccessBloc(
             repository: sl<IAccessRepository>(),
+          ),
+        ),
+        BlocProvider<MyAccessBloc>(
+          create: (_) => MyAccessBloc(
+            zoneRepository: sl(),
+            accessRepository: sl<IAccessRepository>(),
           ),
         ),
         BlocProvider<ThemeBloc>(

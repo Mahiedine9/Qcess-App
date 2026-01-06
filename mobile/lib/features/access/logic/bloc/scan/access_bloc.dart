@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/features/access/data/dto/access_request_dto.dart';
 import 'package:mobile/features/access/data/dto/access_response_dto.dart';
 import 'package:mobile/features/access/data/repositories/i_access_repository.dart';
-import 'package:mobile/features/access/logic/bloc/access_event.dart';
-import 'package:mobile/features/access/logic/bloc/access_state.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_event.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_state.dart';
 
 class AccessBloc extends Bloc<AccessEvent, AccessState> {
   final IAccessRepository _repository;

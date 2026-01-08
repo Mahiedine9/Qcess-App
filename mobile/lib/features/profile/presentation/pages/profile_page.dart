@@ -10,6 +10,7 @@ import 'package:mobile/features/auth/logic/bloc/auth_event.dart';
 import 'package:mobile/features/auth/logic/bloc/auth_state.dart';
 import 'package:mobile/features/profile/data/dto/update_profile_request.dart';
 import 'package:mobile/features/profile/data/models/user_profile.dart';
+import 'package:mobile/features/profile/data/mappers/user_profile_to_user_info_mapper.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_bloc.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_event.dart';
 import 'package:mobile/features/profile/logic/bloc/profile_state.dart';
@@ -111,6 +112,9 @@ class _ProfilePageState extends State<ProfilePage> {
       );
       setState(() => _isEditing = false);
       _initializeControllers(state.profile);
+
+      final updatedUserInfo = UserProfileToUserInfoMapper.map(state.profile);
+      context.read<AuthBloc>().add(UserInfoUpdated(userInfo: updatedUserInfo));
     } else if (state is ProfileError) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -220,7 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return CustomScrollView(
       controller: ScaffoldWithNavBar.getScrollController(
         1,
-      ), // Index 1 pour l'onglet Profil
+      ),
       slivers: [
         ProfileAppBar(
           imageUrl: profile.profilePictureUrl,

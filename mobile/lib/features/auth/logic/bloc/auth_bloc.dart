@@ -1,4 +1,3 @@
-import 'package:mobile/features/auth/data/models/user_info.dart';
 import 'package:mobile/features/auth/data/repositories/i_auth_repository.dart';
 import 'package:mobile/features/auth/logic/exception/api_exception.dart';
 import 'package:mobile/features/auth/logic/bloc/auth_event.dart';
@@ -12,6 +11,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginRequested>(_onLoginRequested);
     on<LogoutRequested>(_onLogoutRequested);
     on<AppStarted>(_onAppStart);
+    on<UserInfoUpdated>(_onUserInfoUpdated);
   }
 
   Future<void> _onAppStart(AppStarted event, Emitter<AuthState> emit) async {
@@ -80,6 +80,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       print('[AuthBloc] Erreur lors de la déconnexion: $e');
       await authRepository.clearLocalData();
       emit(AuthUnauthenticated());
+    }
+  }
+
+  Future<void> _onUserInfoUpdated(
+    UserInfoUpdated event,
+    Emitter<AuthState> emit,
+  ) async {
+    final currentState = state;
+    if (currentState is AuthAuthenticated) {
+      print('[AuthBloc] Mise à jour UserInfo: ${event.userInfo.displayName}');
+      emit(AuthAuthenticated(
+        token: currentState.token,
+        userInfo: event.userInfo,
+      ));
     }
   }
 

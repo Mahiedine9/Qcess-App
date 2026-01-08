@@ -7,6 +7,8 @@ import 'package:mobile/features/access/data/dto/zone_dto.dart';
 import 'package:mobile/features/access/logic/bloc/my_access/my_access_bloc.dart';
 import 'package:mobile/features/access/logic/bloc/my_access/my_access_event.dart';
 import 'package:mobile/features/access/logic/bloc/my_access/my_access_state.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_bloc.dart';
+import 'package:mobile/features/access/logic/bloc/scan/access_state.dart';
 
 class MyAccessPage extends StatefulWidget {
   const MyAccessPage({super.key});
@@ -26,28 +28,36 @@ class _MyAccessPageState extends State<MyAccessPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: BlocBuilder<MyAccessBloc, MyAccessState>(
-        builder: (context, state) {
-          if (state.zonesStatus == LoadStatus.loading ||
-              state.logsStatus == LoadStatus.initial) {
-            return const LoadingWidget();
+      body: BlocListener<AccessBloc, AccessState>(
+        listener: (context, accessState) {
+          if (accessState is AccessSuccess || accessState is AccessDenied) {
+            print('[MyAccessPage] Nouveau scan détecté, rafraîchissement des logs');
+            context.read<MyAccessBloc>().add(const MyAccessRequested(refresh: true));
           }
-
-          if (state.zonesStatus == LoadStatus.failure ||
-              state.logsStatus == LoadStatus.failure) {
-            return _ErrorView(
-              message: state.zonesError ?? state.logsError ?? 'Impossible de charger vos accès. Veuillez réessayer.',
-              onRetry: () {
-                context.read<MyAccessBloc>().add(const MyAccessRequested());
-              },
-            );
-          }
-
-          return _AccessContent(
-            zones: state.zones,
-            logs: state.logs,
-          );
         },
+        child: BlocBuilder<MyAccessBloc, MyAccessState>(
+          builder: (context, state) {
+            if (state.zonesStatus == LoadStatus.loading ||
+                state.logsStatus == LoadStatus.initial) {
+              return const LoadingWidget();
+            }
+
+            if (state.zonesStatus == LoadStatus.failure ||
+                state.logsStatus == LoadStatus.failure) {
+              return _ErrorView(
+                message: state.zonesError ?? state.logsError ?? 'Impossible de charger vos accès. Veuillez réessayer.',
+                onRetry: () {
+                  context.read<MyAccessBloc>().add(const MyAccessRequested());
+                },
+              );
+            }
+
+            return _AccessContent(
+              zones: state.zones,
+              logs: state.logs,
+            );
+          },
+        ),
       ),
     );
   }

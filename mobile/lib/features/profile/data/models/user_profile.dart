@@ -28,11 +28,11 @@ class UserProfile extends Equatable {
   });
 
   String get displayName {
-    if (fullName != null && fullName!.isNotEmpty) {
-      return fullName!;
-    }
     if (firstName != null && lastName != null) {
       return '$firstName $lastName';
+    }
+    if (fullName != null && fullName!.isNotEmpty) {
+      return fullName!;
     }
     if (firstName != null) return firstName!;
     if (lastName != null) return lastName!;

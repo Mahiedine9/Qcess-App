@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter; 
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import univ.lille.domain.model.AccessLog;
 import univ.lille.domain.model.ZoneQrCode;
 import univ.lille.domain.port.in.AccessControlPort;
@@ -23,31 +24,41 @@ import univ.lille.dto.access.AccessRequestDTO;
 import org.springframework.http.MediaType;
 import univ.lille.dto.access.AccessResponseDTO;
 import univ.lille.infrastructure.adapter.notification.SseNotificationAdapter;
+import univ.lille.door.DoorCommandPort;
 import univ.lille.infrastructure.adapter.security.QcessUserPrincipal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/access")
 @RequiredArgsConstructor
+@Slf4j
 public class AccessController {
 
     private final AccessControlPort accessControlPort; 
     private final ZoneQrCodePort zoneQrCodePort ; 
     private final SseNotificationAdapter sseNotificationAdapter; 
+    private final DoorCommandPort doorCommandPort;
 
 
     // Endpoint pour le mobile : Scan QR
 
-    @PostMapping("/scan") 
+    @PostMapping("/scan")
     public ResponseEntity<AccessResponseDTO> scanQrCode(
-        @RequestBody AccessRequestDTO request, 
-        @AuthenticationPrincipal QcessUserPrincipal principal
-    ) { 
-        AccessResponseDTO response = accessControlPort.validateAccess(principal.getId(), request.getZoneId()); 
-          
+            @RequestBody AccessRequestDTO request,
+            @AuthenticationPrincipal QcessUserPrincipal principal) {
+
+        log.info("[AccessScan] Scan reçu pour user={}, zoneId={}", principal.getId(), request.getZoneId());
+
+        AccessResponseDTO response =
+                accessControlPort.validateAccess(principal.getId(), request.getZoneId());
+
         if (response.isGranted()) {
+            log.info("[AccessScan] Accès GRANTED, envoi commande OPEN");
+            doorCommandPort.sendCommand("OPEN");
             return ResponseEntity.ok(response);
         } else {
+            log.info("[AccessScan] Accès DENIED, envoi commande DENY");
+            doorCommandPort.sendCommand("DENY");
             return ResponseEntity.status(403).body(response);
         }
     }

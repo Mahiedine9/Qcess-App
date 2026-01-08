@@ -68,5 +68,11 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- Pour publier des commandes de porte via WebSocket -->
+        <dependency>
+            <groupId>univ.lille</groupId>
+            <artifactId>module-notification</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

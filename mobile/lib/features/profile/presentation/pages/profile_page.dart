@@ -309,7 +309,7 @@ class _ProfilePageState extends State<ProfilePage> {
           icon: Icons.email_outlined,
           label: 'Email',
           controller: _emailController,
-          enabled: _isEditing,
+          enabled: false,
           keyboardType: TextInputType.emailAddress,
         ),
       ],

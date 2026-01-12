@@ -963,28 +963,28 @@ const OrganisationPage = () => {
         </div>
       )}
 
-      <div className="flex flex-col min-h-screen gap-6 bg-slate-50">
+<div className="flex flex-col min-h-screen gap-6 bg-slate-50 dark:bg-[#23232b]">
 
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl text-gray-900">
-            Configuration de l'organisation
+<h1 className="text-2xl text-gray-900 dark:text-gray-100">
+              Configuration de l'organisation
           </h1>
-          <p className="mt-1 text-sm text-gray-400">
-            Gérez les paramètres et les informations de votre organisation ici.
+<p className="mt-1 text-sm text-gray-400 dark:text-gray-400">
+              Gérez les paramètres et les informations de votre organisation ici.
           </p>
         </div>
 
         {/* Section Organisation */}
         <div>
-          <div className="rounded-2xl bg-white p-6 shadow-sm border border-slate-200">
+          <div className="rounded-2xl bg-white dark:bg-[#23232b] p-6 shadow-sm border border-slate-200 dark:border-gray-700">
             <div className="flex flex-col gap-3 mb-6">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50">
-                  <HiOutlineOfficeBuilding className="h-5 w-5 text-indigo-600" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-900">
+                  <HiOutlineOfficeBuilding className="h-5 w-5 text-indigo-600 dark:text-indigo-300" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-900">Informations de l'organisation</h2>
-                  <p className="text-sm text-gray-500">Configurez les informations générales de votre organisation</p>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Informations de l'organisation</h2>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Configurez les informations générales de votre organisation</p>
                 </div>
               </div>
             </div>
@@ -993,51 +993,51 @@ const OrganisationPage = () => {
               <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 {/* Nom */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-gray-700">Nom de l'organisation</label>
+                  <label className="text-sm font-semibold text-gray-700 dark:text-gray-200">Nom de l'organisation</label>
                   <input
                     type="text"
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    className="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                    className="rounded-lg border border-slate-200 dark:border-gray-700 dark:bg-[#23232b] dark:text-gray-100 bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                     placeholder="Entrez le nom"
                   />
                 </div>
 
                 {/* Adresse */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-gray-700">Adresse</label>
+                  <label className="text-sm font-semibold text-gray-700 dark:text-gray-200">Adresse</label>
                   <input
                     type="text"
                     name="address"
                     value={form.address}
                     onChange={handleChange}
-                    className="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                    className="rounded-lg border border-slate-200  bg-white dark:text-gray-100  dark:border-gray-700 dark:bg-[#23232b]  px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                     placeholder="123 Rue Example, Paris"
                   />
                 </div>
 
                 {/* Téléphone */}
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-gray-700">Téléphone</label>
+                  <label className="text-sm font-semibold text-gray-700 dark:text-gray-200">Téléphone</label>
                   <input
                     type="text"
                     name="phoneNumber"
                     value={form.phoneNumber}
                     onChange={handleChange}
-                    className="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                    className="rounded-lg border border-slate-200 bg-white  dark:border-gray-700 dark:text-gray-100 dark:bg-[#23232b]  px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                     placeholder="+33 6 12 34 56 78"
                   />
                 </div>
 
                 {/* Description */}
                 <div className="flex flex-col gap-2 md:col-span-2">
-                  <label className="text-sm font-semibold text-gray-700">Description</label>
+                  <label className="text-sm font-semibold text-gray-700 dark:text-gray-200">Description</label>
                   <textarea
                     name="description"
                     value={form.description}
                     onChange={handleChange}
-                    className="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
+                    className="rounded-lg border border-slate-200 dark:border-gray-700 dark:text-gray-100 bg-white dark:bg-[#23232b]   px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
                     rows={4}
                     placeholder="Décrivez votre organisation..."
                   />
@@ -1078,15 +1078,15 @@ const OrganisationPage = () => {
         </div>
 
         {/* Section Rôles */}
-        <div className="rounded-2xl bg-white p-6 shadow-sm border border-slate-200">
+        <div className="rounded-2xl bg-white dark:bg-[#23232b] p-6 shadow-sm border border-slate-200 dark:border-gray-700">
           <div className="flex justify-between items-start gap-4 mb-6">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50">
-                  <MdOutlinePeopleAlt className="h-5 w-5 text-indigo-600" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-900">
+                  <MdOutlinePeopleAlt className="h-5 w-5 text-indigo-600 dark:text-indigo-300" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-900">Rôles personnalisés</h2>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-300">Rôles personnalisés</h2>
                   <p className="text-sm text-gray-500">{roles.length} {roles.length > 1 ? 'rôles configurés' : 'rôle configuré'}</p>
                 </div>
               </div>
@@ -1099,32 +1099,32 @@ const OrganisationPage = () => {
             </button>
           </div>
 
-          <div className="overflow-hidden rounded-xl border border-slate-200">
+          <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-gray-700">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-slate-50 border-b border-slate-200">
-                  <th className="px-4 py-3 text-left font-semibold text-gray-700">Nom du rôle</th>
-                  <th className="px-4 py-3 text-left font-semibold text-gray-700">Description</th>
-                  <th className="px-4 py-3 text-right font-semibold text-gray-700">Actions</th>
+                <tr className="bg-slate-50  dark:bg-[#23232b] border-b border-slate-200 dark:border-gray-700">
+                  <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-200">Nom du rôle</th>
+                  <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-200">Description</th>
+                  <th className="px-4 py-3 text-right font-semibold text-gray-700 dark:text-gray-200">Actions</th>
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-slate-100  dark:divide-gray-700">
               {roles.length > 0 ? (
                 roles.map((role) => (
                   <tr 
                     key={role.id} 
-                    className="hover:bg-indigo-50/30 transition-all duration-200 cursor-pointer group"
+                    className="hover:bg-indigo-50/30 dark:hover:bg-[#23232b] transition-all duration-200 cursor-pointer group"
                   >
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 font-medium text-xs group-hover:bg-indigo-200 transition-colors">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 font-medium text-xs group-hover:bg-indigo-200 dark: transition-colors">
                           {role.name.charAt(0).toUpperCase()}
                         </div>
-                        <span className="font-medium text-gray-900 group-hover:text-indigo-700 transition-colors">{role.name}</span>
+                        <span className="font-medium text-gray-900 group-hover:text-indigo-700 dark:text-indigo-300 transition-colors">{role.name}</span>
                       </div>
                     </td>
-                    <td className="px-4 py-4 text-gray-600">
+                    <td className="px-4 py-4 text-gray-600 dark:text-gray-400">
                       {role.description || (
                         <span className="italic text-gray-400">
                           Aucune description
@@ -1153,12 +1153,12 @@ const OrganisationPage = () => {
                 <tr>
                   <td colSpan={3} className="px-4 py-12 text-center">
                     <div className="flex flex-col items-center gap-3">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-slate-100">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-gray-700">
                         <MdOutlinePeopleAlt className="h-8 w-8 text-slate-400" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-gray-900">Aucun rôle configuré</p>
-                        <p className="text-sm text-gray-500 mt-1">Commencez par créer votre premier rôle personnalisé</p>
+                        <p className="text-sm font-medium text-gray-900 dark:text-gray-400">Aucun rôle configuré</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-100 mt-1">Commencez par créer votre premier rôle personnalisé</p>
                       </div>
                     </div>
                   </td>
@@ -1170,15 +1170,15 @@ const OrganisationPage = () => {
         </div>
 
         {/* Section Zones */}
-        <div className="rounded-2xl bg-white p-6 shadow-sm border border-slate-200">
+        <div className="rounded-2xl p-6 bg-white dark:bg-[#23232b] shadow-sm border border-slate-200 dark:border-gray-700 ">
           <div className="flex justify-between items-start gap-4 mb-6">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50">
-                  <HiOutlineLocationMarker className="h-5 w-5 text-indigo-600" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-900">
+                  <HiOutlineLocationMarker className="h-5 w-5 text-indigo-600 dark:text-indigo-200" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-900">Zones de l'organisation</h2>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-400">Zones de l'organisation</h2>
                   <p className="text-sm text-gray-500">{zones.length} {zones.length > 1 ? 'zones configurées' : 'zone configurée'}</p>
                 </div>
               </div>
@@ -1192,20 +1192,20 @@ const OrganisationPage = () => {
           </div>
 
           {zonesLoading ? (
-            <div className="flex flex-col items-center justify-center py-12">
-              <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-indigo-600"></div>
+            <div className="flex flex-col  items-center justify-center py-12">
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 dark:border-gray-700 border-t-indigo-600 dark:border-t-indigo-200"></div>
               <p className="mt-3 text-sm text-gray-500">Chargement des zones...</p>
             </div>
           ) : (
-            <div className="overflow-hidden rounded-xl border border-slate-200">
+            <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-gray-700">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-slate-50 border-b border-slate-200">
-                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Nom de la zone</th>
-                    <th className="px-4 py-3 text-left font-semibold text-gray-700">Description</th>
-                    <th className="px-4 py-3 text-center font-semibold text-gray-700">Type d'accès</th>
-                    <th className="px-4 py-3 text-center font-semibold text-gray-700">Statut</th>
-                    <th className="px-4 py-3 text-right font-semibold text-gray-700">Actions</th>
+                  <tr className="bg-slate-50 border-b border-slate-200 dark:bg-[#23232b] dark:border-gray-700">
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Nom de la zone</th>
+                    <th className="px-4 py-3 text-left font-semibold text-gray-700 dark:text-gray-300">Description</th>
+                    <th className="px-4 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">Type d'accès</th>
+                    <th className="px-4 py-3 text-center font-semibold text-gray-700 dark:text-gray-300">Statut</th>
+                    <th className="px-4 py-3 text-right font-semibold text-gray-700 dark:text-gray-300">Actions</th>
                   </tr>
                 </thead>
 
@@ -1218,17 +1218,32 @@ const OrganisationPage = () => {
                     return (
                       <tr 
                         key={zone.id} 
-                        className="hover:bg-gradient-to-r hover:from-indigo-50/50 hover:to-teal-50/50 transition-all duration-300 cursor-pointer group border-l-2 border-transparent hover:border-l-indigo-500"
-                      >
+                  className="
+  cursor-pointer group transition-all duration-300
+  border-l-2 border-transparent hover:border-l-indigo-500 dark:hover:border-l-indigo-400
+
+  hover:bg-gradient-to-r hover:from-indigo-50/50 hover:to-teal-50/50
+  dark:hover:bg-gradient-to-r dark:hover:from-indigo-950/60 dark:hover:to-teal-950/40
+"                      >
                         <td className="px-4 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700 font-semibold text-sm group-hover:bg-indigo-600 group-hover:text-white group-hover:scale-110 transition-all duration-300 shadow-sm group-hover:shadow-md">
+                            <div    className="
+        flex h-9 w-9 items-center justify-center rounded-lg
+        bg-indigo-100 text-indigo-700
+        dark:bg-indigo-900 dark:text-indigo-300
+        font-semibold text-sm
+        group-hover:bg-indigo-600 group-hover:text-white
+        dark:group-hover:bg-indigo-500
+        group-hover:scale-110
+        transition-all duration-300
+        shadow-sm group-hover:shadow-md
+      ">
                               {zone.name.charAt(0).toUpperCase()}
                             </div>
-                            <span className="font-semibold text-gray-900 group-hover:text-indigo-700 transition-colors duration-300">{zone.name}</span>
+                            <span className="font-semibold text-gray-900 dark:text-indigo-300 group-hover:text-indigo-700 transition-colors duration-300">{zone.name}</span>
                           </div>
                         </td>
-                        <td className="px-4 py-4 text-gray-600 group-hover:text-gray-900 transition-colors">
+                        <td className="px-4 py-4 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 transition-colors">
                           {zone.description || (
                             <span className="italic text-gray-400 group-hover:text-gray-500">
                               Aucune description

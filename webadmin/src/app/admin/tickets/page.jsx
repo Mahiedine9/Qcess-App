@@ -174,11 +174,12 @@ export default function TicketsPage() {
 
     const getStatusBadge = (status) => {
         const styles = {
-            OPEN: "bg-blue-50 text-blue-700 border-blue-200",
-            IN_PROGRESS: "bg-amber-50 text-amber-700 border-amber-200",
-            RESOLVED: "bg-emerald-50 text-emerald-700 border-emerald-200",
-            REJECTED: "bg-red-50 text-red-700 border-red-200",
-            CANCELLED: "bg-slate-50 text-slate-500 border-slate-200"
+            OPEN: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-200 dark:border-blue-800",
+            IN_PROGRESS: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-200 dark:border-amber-800",
+            RESOLVED: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-200 dark:border-emerald-800",
+            REJECTED: "bg-red-50 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-200 dark:border-red-800",
+            CANCELLED: "bg-slate-50 text-slate-500 border-slate-200 dark:bg-slate-800/40 dark:text-slate-300 dark:border-slate-700",
+
         };
         
         const labels = {
@@ -197,12 +198,13 @@ export default function TicketsPage() {
     };
 
     const getPriorityBadge = (priority) => {
-        const styles = {
-            LOW: "text-slate-600 bg-slate-100",
-            MEDIUM: "text-blue-600 bg-blue-100",
-            HIGH: "text-orange-600 bg-orange-100",
-            CRITICAL: "text-red-600 bg-red-100"
-        };
+const styles = {
+  LOW: "text-slate-600 bg-slate-100 dark:text-slate-200 dark:bg-slate-700/40",
+  MEDIUM: "text-blue-600 bg-blue-100 dark:text-blue-200 dark:bg-blue-900/30",
+  HIGH: "text-orange-600 bg-orange-100 dark:text-orange-200 dark:bg-orange-900/30",
+  CRITICAL: "text-red-600 bg-red-100 dark:text-red-200 dark:bg-red-900/30",
+};
+
 
         const labels = {
             LOW: "Basse",
@@ -229,12 +231,12 @@ export default function TicketsPage() {
             {/* Header */}
             <div className="flex items-start justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50">
-                        <HiOutlineTicket className="h-6 w-6 text-indigo-600" />
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-900">
+                        <HiOutlineTicket className="h-6 w-6 text-indigo-600 dark:text-indigo-300" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-semibold text-gray-900">Tickets de support</h1>
-                        <p className="mt-1 text-sm text-gray-500">
+                        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Tickets de support</h1>
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                             Gérez les demandes de vos utilisateurs
                         </p>
                     </div>
@@ -250,13 +252,15 @@ export default function TicketsPage() {
                         placeholder="Rechercher un ticket (ID, titre, utilisateur)..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="w-full rounded-lg border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-sm outline-none placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 transition-all"
-                    />
+className="w-full rounded-lg border border-slate-200 dark:border-gray-700
+bg-white dark:bg-[#181818] pl-10 pr-4 py-2.5 text-sm outline-none
+text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500
+focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900/40 transition-all"                    />
                 </div>
             </div>
 
             {/* Content */}
-            <div className="rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden">
+            <div className="rounded-2xl bg-white border dark:bg-[#23232b] border-slate-200 shadow-sm overflow-hidden">
                 {loading ? (
                     <div className="flex flex-col items-center justify-center py-16">
                         <div className="h-12 w-12 animate-spin rounded-full border-4 border-slate-200 border-t-indigo-600"></div>
@@ -278,27 +282,27 @@ export default function TicketsPage() {
                     </div>
                 ) : (
                     <div className="overflow-x-auto">
-                        <table className="min-w-full text-left text-sm">
-                            <thead className="bg-slate-50">
-                                <tr className="border-b border-slate-200">
-                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs uppercase tracking-wider">ID</th>
-                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs uppercase tracking-wider">Sujet</th>
-                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs uppercase tracking-wider">Utilisateur</th>
-                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs uppercase tracking-wider text-center">Priorité</th>
-                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs uppercase tracking-wider text-center">Statut</th>
-                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs uppercase tracking-wider text-center">Date</th>
-                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs uppercase tracking-wider text-right">Actions</th>
+                        <table className="min-w-full text-left text-sm ">
+                            <thead className="bg-slate-50 dark:bg-[#23232b]">
+                                <tr className="border-b border-slate-200 dark:border-gray-700">
+                                    <th className="px-6 py-4 font-semibold text-gray-700 dark:text-gray-200 text-xs uppercase tracking-wider">ID</th>
+                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs dark:text-gray-200 uppercase tracking-wider">Sujet</th>
+                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs dark:text-gray-200 uppercase tracking-wider">Utilisateur</th>
+                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs dark:text-gray-200 uppercase tracking-wider text-center">Priorité</th>
+                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs dark:text-gray-200 uppercase tracking-wider text-center">Statut</th>
+                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs dark:text-gray-200 uppercase tracking-wider text-center">Date</th>
+                                    <th className="px-6 py-4 font-semibold text-gray-700 text-xs dark:text-gray-200 uppercase tracking-wider text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-100">
+                            <tbody className="divide-y divide-slate-100 dark:divide-gray-700">
                                 {filteredTickets.map((ticket) => (
-                                    <tr key={ticket.id} className="hover:bg-slate-50 transition-colors">
-                                        <td className="px-6 py-4 font-medium text-gray-900">#{ticket.id}</td>
+                                    <tr key={ticket.id} className="hover:bg-slate-50 dark:hover:bg-[#2b2b33] transition-colors">
+                                        <td className="px-6 py-4 font-medium text-gray-900 dark:text-gray-100">#{ticket.id}</td>
                                         <td className="px-6 py-4">
-                                            <div className="font-medium text-gray-900">{ticket.title}</div>
-                                            <div className="text-xs text-gray-500 truncate max-w-[200px]">{ticket.description}</div>
+                                            <div className="font-medium text-gray-900 dark:text-gray-100">{ticket.title}</div>
+                                            <div className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[200px]">{ticket.description}</div>
                                         </td>
-                                        <td className="px-6 py-4 text-gray-600">{ticket.createdByUserName}</td>
+                                        <td className="px-6 py-4 text-gray-600 dark:text-gray-100">{ticket.createdByUserName}</td>
                                         <td className="px-6 py-4 text-center">{getPriorityBadge(ticket.priority)}</td>
                                         <td className="px-6 py-4 text-center">{getStatusBadge(ticket.status)}</td>
                                         <td className="px-6 py-4 text-center text-gray-500">
@@ -307,8 +311,9 @@ export default function TicketsPage() {
                                         <td className="px-6 py-4 text-right">
                                             <button 
                                                 onClick={() => openModal(ticket)}
-                                                className="text-indigo-600 hover:text-indigo-900 font-medium text-xs bg-indigo-50 px-3 py-1.5 rounded-md hover:bg-indigo-100 transition-colors"
-                                            >
+className="text-indigo-600 dark:text-indigo-300 hover:text-indigo-900 dark:hover:text-indigo-200
+font-medium text-xs bg-indigo-50 dark:bg-indigo-900/30 px-3 py-1.5 rounded-md
+hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"                                            >
                                                 Gérer
                                             </button>
                                         </td>
@@ -323,32 +328,31 @@ export default function TicketsPage() {
             {/* Modal Details */}
             {isModalOpen && selectedTicket && (
                 <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/40 transition-opacity duration-300 ${modalVisible ? "opacity-100" : "opacity-0"}`}>
-                    <div className={`w-full max-w-2xl bg-white rounded-2xl shadow-xl transform transition-all duration-200 flex flex-col max-h-[90vh] ${modalVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-4"}`}>
+<div className={`w-full max-w-2xl bg-white dark:bg-[#23232b] rounded-2xl shadow-xl transform transition-all duration-200 flex flex-col max-h-[90vh] ${modalVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-4"}`}>
                         
                         {/* Header */}
-                        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-                            <div>
-                                <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                    Ticket #{selectedTicket.id}
-                                    {getStatusBadge(selectedTicket.status)}
-                                </h2>
-                                <p className="text-sm text-gray-500">Ouvert par {selectedTicket.createdByUserName}</p>
-                            </div>
-                            <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 p-1 rounded-full hover:bg-slate-100 transition-colors">
-                                <HiX className="h-6 w-6" />
-                            </button>
-                        </div>
-
+                    <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-gray-700">
+  <div>
+    <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+      Ticket #{selectedTicket.id}
+      {getStatusBadge(selectedTicket.status)}
+    </h2>
+    <p className="text-sm text-gray-500 dark:text-gray-400">Ouvert par {selectedTicket.createdByUserName}</p>
+  </div>
+  <button onClick={closeModal} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-[#181818] transition-colors">
+    <HiX className="h-6 w-6" />
+  </button>
+</div>
                         {/* Body - Scrollable */}
                         <div className="flex-1 overflow-y-auto p-6 space-y-6">
                             {/* Info Ticket */}
-                            <div className="bg-slate-50 rounded-xl p-4 border border-slate-200 space-y-3">
+                            <div className="bg-slate-50 dark:bg-[#181818] rounded-xl p-4 border border-slate-200 dark:border-gray-700  space-y-3">
                                 <div className="flex justify-between items-start">
-                                    <h3 className="font-semibold text-gray-900">{selectedTicket.title}</h3>
+                                    <h3 className="font-semibold text-gray-900 dark:text-gray-100">{selectedTicket.title}</h3>
                                     {getPriorityBadge(selectedTicket.priority)}
                                 </div>
-                                <p className="text-sm text-gray-700 whitespace-pre-wrap">{selectedTicket.description}</p>
-                                <div className="text-xs text-gray-500 flex items-center gap-1 pt-2">
+                                <p className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap">{selectedTicket.description}</p>
+                                <div className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1 pt-2">
                                     <HiOutlineClock className="h-3.5 w-3.5" />
                                     Créé le {new Date(selectedTicket.createdAt).toLocaleString('fr-FR')}
                                 </div>
@@ -356,7 +360,7 @@ export default function TicketsPage() {
 
                             {/* Actions Status */}
                             <div className="space-y-2">
-                                <h4 className="text-sm font-semibold text-gray-900">Changer le statut</h4>
+                                <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-400 ">Changer le statut</h4>
                                 
                                 {selectedTicket.status === 'CANCELLED' && (
                                     <div className="bg-slate-50 border border-slate-300 rounded-lg p-3 flex items-start gap-2">
@@ -422,7 +426,7 @@ export default function TicketsPage() {
 
                             {/* Conversation */}
                             <div className="space-y-4">
-                                <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                                <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-400 flex items-center gap-2">
                                     <HiOutlineChatAlt2 className="h-4 w-4" />
                                     Conversation
                                 </h4>
@@ -462,7 +466,7 @@ export default function TicketsPage() {
                         </div>
 
                         {/* Footer - Input Message */}
-                        <div className="p-4 border-t border-slate-200 bg-slate-50 rounded-b-2xl">
+                        <div className="p-4 border-t border-slate-200 dark:border-gray-700 bg-slate-50 dark:bg-[#181818] rounded-b-2xl">
                             <form onSubmit={handleSendComment} className="flex gap-3">
                                 <input
                                     type="text"

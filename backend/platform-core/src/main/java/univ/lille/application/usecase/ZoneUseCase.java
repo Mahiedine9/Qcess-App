@@ -51,6 +51,7 @@ public class ZoneUseCase implements ZoneManagementPort {
         Zone zoneSaved = zoneRepository.save(zone);
 
         ZoneCreatedEvent event = new ZoneCreatedEvent(
+                this,
                 zoneSaved.getId(),
                 zoneSaved.getOrgId(),
                 zoneSaved.getName()

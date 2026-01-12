@@ -1,20 +1,19 @@
 package univ.lille.events;
 
-import java.io.Serializable;
+import org.springframework.context.ApplicationEvent;
+import lombok.Getter;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Data;
+@Getter
+public class ZoneCreatedEvent extends ApplicationEvent {
 
-@Data 
-@NoArgsConstructor
-@AllArgsConstructor
-public class ZoneCreatedEvent implements Serializable {
+    private final Long zoneId;
+    private final Long organizationId;
+    private final String name;
 
-    Long zoneId ;
-    Long organizationId;
-    String name ;
-   // String type ;
-
-
+    public ZoneCreatedEvent(Object source, Long zoneId, Long organizationId, String name) {
+        super(source);
+        this.zoneId = zoneId;
+        this.organizationId = organizationId;
+        this.name = name;
+    }
 }

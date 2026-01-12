@@ -184,12 +184,12 @@ export default function DashboardPage() {
     ] : [];
 
     return (
-        <main className="space-y-8">
+        <main className="space-y-8 ">
             {/* Header */}
-            <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline justify-between ">
                 <div>
-                    <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
-                    <p className="mt-1 text-sm text-gray-500">
+                    <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Dashboard</h1>
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                         Vue d’ensemble des accès, utilisateurs et tickets de maintenance.
                     </p>
                 </div>
@@ -201,22 +201,22 @@ export default function DashboardPage() {
                 {statsCards.map((stat) => (
                     <div
                         key={stat.id}
-                        className="flex items-center justify-between rounded-2xl bg-white px-5 py-4 shadow-sm border border-slate-100"
+                        className="flex items-center justify-between rounded-2xl bg-white dark:bg-[#23232b] px-5 py-4 shadow-sm border border-slate-100 dark:border-gray-700"
                     >
                         <div className="flex items-center gap-3">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300">
                                 {stat.icon}
                             </div>
                             <div>
-                                <p className="text-xs font-medium uppercase tracking-wide text-gray-400">
+                                <p className="text-xs font-medium uppercase tracking-wide text-gray-400 dark:text-gray-400">
                                     {stat.label}
                                 </p>
-                                <p className="mt-1 text-2xl font-semibold text-gray-900">
+                                <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-gray-100">
                                     {stat.value}
                                 </p>
                             </div>
                         </div>
-                        <p className="text-xs text-gray-500 text-right max-w-[120px]">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 text-right max-w-[120px]">
                             {stat.subLabel}
                         </p>
                     </div>
@@ -226,21 +226,21 @@ export default function DashboardPage() {
             {/* Bottom panels */}
             <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 {/* Accès récents */}
-                <div className="rounded-2xl bg-white p-6 shadow-sm border border-slate-100">
+                <div className="rounded-2xl bg-white dark:bg-[#23232b] p-6 shadow-sm border border-slate-100 dark:border-gray-700">
                     <div className="mb-4 flex items-center justify-between">
                         <div>
-                            <h2 className="text-base font-semibold text-gray-900">
+                            <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
                                 Accès récents
                             </h2>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">
                                 Derniers accès enregistrés
                             </p>
                         </div>
                     </div>
 
-                    <ul className="divide-y divide-gray-100">
+                    <ul className="divide-y divide-gray-100 dark:divide-gray-800">
                         {recentAccess.length === 0 ? (
-                            <li className="py-8 text-center text-sm text-gray-500">
+                            <li className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
                                 Aucun accès récent
                             </li>
                         ) : (
@@ -250,13 +250,13 @@ export default function DashboardPage() {
                                     className="flex items-center justify-between py-3"
                                 >
                                     <div>
-                                        <p className="text-sm font-medium text-gray-900">
+                                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                                             {access.userName || "Utilisateur inconnu"}
                                         </p>
-                                        <p className="text-xs text-gray-500">{access.zoneName || "Zone inconnue"}</p>
+                                        <p className="text-xs text-gray-500 dark:text-gray-400">{access.zoneName || "Zone inconnue"}</p>
                                     </div>
                                     <div className="text-right">
-                                        <p className="text-sm text-gray-900">
+                                        <p className="text-sm text-gray-900 dark:text-gray-100">
                                             {new Date(access.timestamp).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                                         </p>
                                         <p className={`text-xs ${access.accessGranted ? "text-green-600" : "text-red-600"}`}>
@@ -270,21 +270,21 @@ export default function DashboardPage() {
                 </div>
 
                 {/* Tickets récents */}
-                <div className="rounded-2xl bg-white p-6 shadow-sm border border-slate-100">
+                <div className="rounded-2xl bg-white dark:bg-[#23232b] p-6 shadow-sm border border-slate-100 dark:border-gray-700">
                     <div className="mb-4 flex items-center justify-between">
                         <div>
-                            <h2 className="text-base font-semibold text-gray-900">
+                            <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
                                 Tickets récents
                             </h2>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-gray-500 dark:text-gray-400">
                                 Dernières demandes de maintenance
                             </p>
                         </div>
                     </div>
 
-                    <ul className="divide-y divide-gray-100">
+                    <ul className="divide-y divide-gray-100 dark:divide-gray-800">
                         {recentTickets.length === 0 ? (
-                            <li className="py-8 text-center text-sm text-gray-500">
+                            <li className="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
                                 Aucun ticket récent
                             </li>
                         ) : (
@@ -294,10 +294,10 @@ export default function DashboardPage() {
                                     className="flex items-center justify-between py-3"
                                 >
                                     <div>
-                                        <p className="text-sm font-medium text-indigo-700 hover:underline cursor-pointer">
+                                        <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300 hover:underline cursor-pointer">
                                             {ticket.title}
                                         </p>
-                                        <p className="text-xs text-gray-500">
+                                        <p className="text-xs text-gray-500 dark:text-gray-400">
                                             Par {ticket.createdByUserName || "Utilisateur"} - {new Date(ticket.createdAt).toLocaleDateString('fr-FR')}
                                         </p>
                                     </div>

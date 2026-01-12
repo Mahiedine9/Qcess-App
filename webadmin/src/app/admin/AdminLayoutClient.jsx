@@ -11,7 +11,7 @@ export default function AdminLayout({ admin , children }) {
     const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
     return (
-        <div className="flex min-h-screen bg-slate-50">
+        <div className="flex min-h-screen bg-slate-50 dark:bg-slate-900">
             {/* Sidebar à gauche */}
             <Sidebar
                 isOpen={isSidebarOpen}
@@ -27,7 +27,7 @@ export default function AdminLayout({ admin , children }) {
   `}
             >
                 {/* Top bar */}
-                <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 lg:px-8">
+                <header className="flex h-16 items-center justify-between border-b border-slate-200 dark:border-gray-900 bg-white dark:bg-[#23232b] px-4 lg:px-8">
                     {/* Bouton menu (mobile) */}
                     <button
                         className="inline-flex cursor-pointer items-center justify-center rounded-lg p-2 text-gray-600 hover:bg-slate-100 "
@@ -47,7 +47,7 @@ export default function AdminLayout({ admin , children }) {
                 </header>
 
                 {/* Zone de contenu */}
-                <main className="flex-1 px-4 py-6 lg:px-8">
+                <main className="flex-1 px-4 py-6 lg:px-8 bg-white dark:bg-[#23232b]">
                     {children}
                 </main>
             </div>

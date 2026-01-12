@@ -1,5 +1,10 @@
 package univ.lille.infrastructure.adapter.config;
 
+// Kafka Configuration - DISABLED (Using Spring Events instead)
+// This configuration is commented out as we migrated from Kafka to Spring Events
+// Keep this file for future reference if Kafka is needed again
+
+/*
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,3 +53,4 @@ public class KafkaConsumerConfig {
         return factory;
     }
 }
+*/

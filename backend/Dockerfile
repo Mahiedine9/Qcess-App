@@ -11,8 +11,6 @@ COPY module-notification/pom.xml module-notification/pom.xml
 COPY module-dashboard/pom.xml  module-dashboard/pom.xml
 COPY app-rest/pom.xml           app-rest/pom.xml
 
-RUN mvn -q -B -DskipTests dependency:go-offline
-
 COPY platform-contracts/src platform-contracts/src
 COPY platform-core/src      platform-core/src
 COPY module-acess/src       module-acess/src

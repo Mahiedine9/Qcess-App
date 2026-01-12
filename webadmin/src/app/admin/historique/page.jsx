@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-
+import { API_BASE_URL, API_URL } from '@/lib/api';
+import { HiOutlineUsers } from "react-icons/hi";
+import { FaHistory } from "react-icons/fa";
 export default function LogsPage() {
     const [logs, setLogs] = useState([]);
     const [filteredLogs, setFilteredLogs] = useState([]);
@@ -23,7 +25,7 @@ export default function LogsPage() {
     const fetchLogs = async () => {
         try {
             setLoading(true);
-            const res = await fetch('http://localhost:8080/api/access/logs', {
+            const res = await fetch(`${API_BASE_URL}/access/logs`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -51,7 +53,7 @@ export default function LogsPage() {
         useEffect(() => {
         fetchLogs();
 
-        const streamUrl = 'http://localhost:8080/api/access/stream-logs';
+        const streamUrl = `${API_BASE_URL}/access/stream-logs`;
         const eventSource = new EventSource(streamUrl, { withCredentials: true });
 
         eventSource.addEventListener('access-log', (event) => {
@@ -112,52 +114,66 @@ export default function LogsPage() {
     };
 
     return (
-        <div className="p-6 space-y-6">
-            <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-gray-800">Historique des accès</h1>
-                <button 
-                    onClick={fetchLogs} 
-                    className=" cursor-pointer px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
-                >
-                Actualiser
-                </button>
-            </div>
+        <div className=" space-y-6 ">
+                            <div className="flex items-center gap-3">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-900">
+                                    <FaHistory className="h-6 w-6 text-indigo-600 dark:text-indigo-300" />
+                                </div>
+                                <div>
+                                    <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Historique des accès</h1>
+                                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                        Des logs en temps réel de toutes les tentatives d'accès aux zones sécurisées.
+                                    </p>
+                                </div>
+                            </div>
 
             {/* Filters Section */}
-            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white dark:bg-[#181818] p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Utilisateur</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Utilisateur</label>
                     <input
                         type="text"
                         placeholder="Rechercher un utilisateur..."
                         value={searchUser}
                         onChange={(e) => setSearchUser(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                    />
+className="w-full px-4 py-2 rounded-lg outline-none transition-all
+border border-gray-300 dark:border-gray-700
+bg-white dark:bg-[#23232b]
+text-gray-900 dark:text-gray-100
+placeholder:text-gray-400 dark:placeholder:text-gray-500
+focus:ring-2 focus:ring-blue-500 focus:border-blue-500"                    />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Zone</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Zone</label>
                     <input
                         type="text"
                         placeholder="Rechercher une zone..."
                         value={searchZone}
                         onChange={(e) => setSearchZone(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                    />
+className="w-full px-4 py-2 rounded-lg outline-none transition-all
+border border-gray-300 dark:border-gray-700
+bg-white dark:bg-[#23232b]
+text-gray-900 dark:text-gray-100
+placeholder:text-gray-400 dark:placeholder:text-gray-500
+focus:ring-2 focus:ring-blue-500 focus:border-blue-500"                    />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Date</label>
                     <input
                         type="date"
                         value={searchDate}
                         onChange={(e) => setSearchDate(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-                    />
+className="w-full px-4 py-2 rounded-lg outline-none transition-all
+border border-gray-300 dark:border-gray-700
+bg-white dark:bg-[#23232b]
+text-gray-900 dark:text-gray-100
+placeholder:text-gray-400 dark:placeholder:text-gray-500
+focus:ring-2 focus:ring-blue-500 focus:border-blue-500"                    />
                 </div>
             </div>
 
             {/* Table Section */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="bg-white dark:bg-[#23232b] rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
                 {loading ? (
                     <div className="p-8 text-center text-gray-500">Chargement des données...</div>
                 ) : error ? (
@@ -166,40 +182,38 @@ export default function LogsPage() {
                     <div className="p-8 text-center text-gray-500">Aucun historique trouvé.</div>
                 ) : (
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
+                        <table className="w-full table-fixed text-left border-collapse">
                             <thead>
-                                <tr className="bg-gray-50 border-b border-gray-100">
-                                    <th className="px-6 py-4 text-sm font-semibold text-gray-600">Date & Heure</th>
-                                    <th className="px-6 py-4 text-sm font-semibold text-gray-600">Utilisateur</th>
-                                    <th className="px-6 py-4 text-sm font-semibold text-gray-600">Zone</th>
-                                    <th className="px-6 py-4 text-sm font-semibold text-gray-600">Statut</th>
-                                    <th className="px-6 py-4 text-sm font-semibold text-gray-600">Détails</th>
+                                <tr className="bg-gray-50 dark:bg-[#23232b] border-b border-gray-100 dark:border-gray-700">
+                                    <th className="px-6 py-4 text-left font-semibold text-gray-700 dark:text-gray-200 text-xs uppercase tracking-wider">Date & Heure</th>
+                                    <th className="px-6 py-4 text-left font-semibold text-gray-700 dark:text-gray-200 text-xs uppercase tracking-wider">Utilisateur</th>
+                                    <th className="px-6 py-4 text-left font-semibold text-gray-700 dark:text-gray-200 text-xs uppercase tracking-wider">Zone</th>
+                                    <th className="px-6 py-4 text-center font-semibold text-gray-700 dark:text-gray-200 text-xs uppercase tracking-wider">Statut</th>
+                                    <th className="px-6 py-4 text-center font-semibold text-gray-700 dark:text-gray-200 text-xs uppercase tracking-wider">Détails</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-100">
+                            <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                                 {filteredLogs.map((log) => (
-                                    <tr key={log.id} className="hover:bg-gray-50 transition-colors">
-                                        <td className="px-6 py-4 text-sm text-gray-600">
+                                    <tr key={log.id} className="hover:bg-gray-50 dark:hover:bg-[#2b2b33] transition-colors">
+                                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-100">
                                             {formatDate(log.timestamp)}
                                         </td>
-                                        <td className="px-6 py-4 text-sm font-medium text-gray-900">
-                                            {log.userName || <span className="text-gray-400 italic">Inconnu (ID: {log.userId})</span>}
+                                        <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                            {log.userName || <span className="text-gray-400  italic">Inconnu (ID: {log.userId})</span>}
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-600">
+                                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-100">
                                             {log.zoneName || <span className="text-gray-400 italic">Inconnue (ID: {log.zoneId})</span>}
                                         </td>
-                                        <td className="px-6 py-4">
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                                                log.accessGranted 
-                                                    ? 'bg-green-100 text-green-800' 
-                                                    : 'bg-red-100 text-red-800'
-                                            }`}>
+                                        <td className="px-6 py-4 text-center">
+                                            <span className={`inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+log.accessGranted
+  ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200'
+  : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200'                                            }`}>
                                                 {log.accessGranted ? 'AUTORISÉ' : 'REFUSÉ'}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-500">
-                                            {!log.accessGranted && log.reason ? (
-                                                <span className="text-red-600">{log.reason}</span>
+                                                <td className="px-6 py-4 text-sm text-center text-gray-500 dark:text-gray-300">                                            {!log.accessGranted && log.reason ? (
+                                                <span className="text-red-600 dark:text-red-300">{log.reason}</span>
                                             ) : (
                                                 '-'
                                             )}

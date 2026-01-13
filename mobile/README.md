@@ -1,6 +1,6 @@
 # Mobile – Platine Qcess
 
-## 📱 Stack
+## Stack
 - Flutter
 - Dart
 - Cible : Android (APK), iOS, Web, Desktop (support framework)
@@ -8,7 +8,13 @@
 	- API REST (`API_BASE_URL`)
 	- WebSocket/STOMP (`WS_BASE_URL` via SockJS)
 
-## 🧱 Architecture applicative
+## 📸 Aperçu
+
+| Espace utilisateur | Scan QR | Tickets | Détails ticket | Paramètres |
+|:---:|:---:|:---:|:---:|:---:|
+| <img src="screenshots/espace_user.png" width="180" alt="Espace utilisateur" /> | <img src="screenshots/scan_page.png" width="180" alt="Scan QR" /> | <img src="screenshots/ticket_page.png" width="180" alt="Liste des tickets" /> | <img src="screenshots/comment_page.png" width="180" alt="Détail / commentaires ticket" /> | <img src="screenshots/parametre_page.png" width="180" alt="Paramètres" /> |
+
+## Architecture applicative
 - Architecture **feature-first** (par domaine fonctionnel) :
 	- `features/auth`, `features/home`, `features/profile`, `features/maintenance`, `features/notification`, `features/access`, etc.
 - Gestion d’état : BLoC (`flutter_bloc`)
@@ -16,14 +22,13 @@
 - Réseau : `dio` + interceptors (auth, log, gestion d’erreurs)
 - WebSocket : `stomp_dart_client` + `SocketService`
 
-## 🚀 Lancer l’app en développement
+## Lancer l’app en développement
 
 Depuis le dossier `mobile/` :
 
 ```bash
 flutter pub get
 
-# Exemple pour lancer sur un émulateur Android avec backend local
 flutter run \
 	--dart-define=API_BASE_URL=http://10.0.2.2:8080 \
 	--dart-define=WS_BASE_URL=http://10.0.2.2:8080/ws
@@ -48,15 +53,15 @@ L’APK généré se trouve dans :
 
 - `build/app/outputs/flutter-apk/app-release.apk`
 
-## 🧪 Tests
+## Tests
 
 ```bash
 flutter test
 ```
 
-## 🔗 Points d’intégration
+## Points d’intégration
 - **Backend** :
 	- `apiBaseUrl` et `websocketUrl` configurés dans `lib/core/di/di.dart`
 - **Notifications** :
-	- WebSocket/STOMP pour les notifications temps réel
+    - Firebase Cloud Messaging (FCM) pour les notifications push
 	- Gestion du token de device dans `features/notification`

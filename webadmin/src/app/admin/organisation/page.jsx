@@ -34,6 +34,10 @@ const OrganisationPage = () => {
   // États pour les zones
   const [zones, setZones] = useState([]);
   const [zonesLoading, setZonesLoading] = useState(false);
+  const [zoneSuccess, setZoneSuccess] = useState(null);
+  const [zoneError, setZoneError] = useState(null);
+  const [zoneSuccessVisible, setZoneSuccessVisible] = useState(false);
+  const [zoneErrorVisible, setZoneErrorVisible] = useState(false);
   const [isZoneModalOpen, setIsZoneModalOpen] = useState(false);
   const [zoneModalVisible, setZoneModalVisible] = useState(false);
   const [selectedZone, setSelectedZone] = useState(null);
@@ -505,11 +509,21 @@ const OrganisationPage = () => {
         throw new Error("Erreur lors de la régénération du QR code");
       }
       await loadZones();
-      setSuccess("QR code régénéré avec succès !");
-      setTimeout(() => setSuccess(null), 3000);
+      setZoneError(null);
+      setZoneSuccess("QR code régénéré avec succès !");
+      setZoneSuccessVisible(true);
+      setTimeout(() => {
+        setZoneSuccessVisible(false);
+        setTimeout(() => setZoneSuccess(null), 200);
+      }, 2800);
     } catch (err) {
-      setError(err.message || "Erreur lors de la régénération du QR code");
-      setTimeout(() => setError(null), 3000);
+      setZoneSuccess(null);
+      setZoneError(err.message || "Erreur lors de la régénération du QR code");
+      setZoneErrorVisible(true);
+      setTimeout(() => {
+        setZoneErrorVisible(false);
+        setTimeout(() => setZoneError(null), 200);
+      }, 2800);
     }
   }
 
@@ -1190,6 +1204,24 @@ const OrganisationPage = () => {
               + Créer une zone
             </button>
           </div>
+
+          {zoneSuccess && (
+            <div className={`mb-4 flex items-center gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 transition-all duration-300 transform ${zoneSuccessVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100">
+                <span className="text-emerald-600 font-bold text-sm">✓</span>
+              </div>
+              <p className="text-sm text-emerald-800 font-medium">{zoneSuccess}</p>
+            </div>
+          )}
+
+          {zoneError && (
+            <div className={`mb-4 flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3 transition-all duration-300 transform ${zoneErrorVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-red-100">
+                <span className="text-red-600 font-bold text-sm">!</span>
+              </div>
+              <p className="text-sm text-red-800 font-medium">{zoneError}</p>
+            </div>
+          )}
 
           {zonesLoading ? (
             <div className="flex flex-col  items-center justify-center py-12">
